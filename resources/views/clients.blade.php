@@ -23,14 +23,14 @@
         </form>
     </div>
 
-    <div>
+    <div class="table">
         <table>
             <tr>
-                <th>Vārds</th>
-                <th>Uzvārds</th>
-                <th>Telefona nr.</th>
-                <th>Izveidots</th>
-                <th>Atjaunots</th>
+                <th>@sortablelink('first_name', 'Vārds')</th>
+                <th>@sortablelink('last_name', 'Uzvārds')</th>
+                <th>@sortablelink('phone_number', 'Telefona nr.')</th>
+                <th>@sortablelink('created_at', 'Izveidots')</th>
+                <th>@sortablelink('updated_at', 'Atjaunots')</th>
             </tr>
             @foreach($clients as $client)
                 <tr>
@@ -64,5 +64,6 @@
                 </tr>
             @endforeach
         </table>
+        {{$clients->render()}}
     </div>
 @endsection

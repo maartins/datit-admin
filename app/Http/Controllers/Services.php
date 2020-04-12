@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class Services extends Controller
 {
     public function index() {
-        $services = Service::all();
+        $services = Service::sortable()->paginate(2);
         return view('services', ['services' => $services]);
     }
 

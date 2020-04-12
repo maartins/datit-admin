@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Clients extends Controller
 {
     public function index() {
-        $clients = Client::all();
+        $clients = Client::sortable()->paginate(2);
         return view('clients', ['clients' => $clients]);
     }
 

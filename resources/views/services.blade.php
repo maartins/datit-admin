@@ -22,13 +22,13 @@
         </form>
     </div>
 
-    <div>
+    <div class="table">
         <table>
             <tr>
-                <th>Apraksts</th>
-                <th>Cena</th>
-                <th>Izveidots</th>
-                <th>Atjaunots</th>
+                <th>@sortablelink('description', 'Apraksts')</th>
+                <th>@sortablelink('price', 'Cena')</th>
+                <th>@sortablelink('created_at', 'Izveidots')</th>
+                <th>@sortablelink('updated_at', 'Atjaunots')</th>
             </tr>
             @foreach($services as $service)
                 <tr>
@@ -57,5 +57,6 @@
                 </tr>
             @endforeach
         </table>
+        {{$services->render()}}
     </div>
 @endsection
