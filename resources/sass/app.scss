@@ -1,1 +1,31 @@
-//
+div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: baseline;
+
+    margin: 0;
+    padding: 0.5ex;
+    margin-bottom: 5ex;
+
+    color: rgb(6, 67, 102);
+    background-color: rgb(238, 238, 238);
+
+    border-bottom: rgb(228, 225, 58) groove 2px;
+    box-shadow: 0px 4px 80px 11px rgba(213, 231, 46, 0.3);
+
+    ul {
+        padding: 0;
+        margin: 0;
+        li {
+            display: inline-block;
+            margin-left: 2ex;
+            a {
+                font-size: xx-large;
+                color: rgb(95, 161, 199);
+                text-decoration: none;
+            }
+        }
+    }
+}

@@ -14,5 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/clients');
 });
+
+Route::get('/clients', 'Clients@index');
+Route::post('/clients/create', 'Clients@new');
+Route::get('/clients/edit/{id}', 'Clients@edit');
+Route::post('/clients/update/{id}', 'Clients@update');
+Route::get('/clients/delete/{id}', 'Clients@delete');
