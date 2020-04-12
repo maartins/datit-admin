@@ -45,3 +45,12 @@ div ul li a {
     color: #5fa1c7;
     text-decoration: none;
 }
+div table th{
+    padding-top: 1ex;
+    padding-left: 1ex;
+}
+div table td{
+    padding-top: 1ex;
+    padding-left: 1ex;
+    border-top: 0.2ex solid #072d44;
+}

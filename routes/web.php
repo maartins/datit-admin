@@ -22,3 +22,9 @@ Route::post('/clients/create', 'Clients@new');
 Route::get('/clients/edit/{id}', 'Clients@edit');
 Route::post('/clients/update/{id}', 'Clients@update');
 Route::get('/clients/delete/{id}', 'Clients@delete');
+
+Route::get('/services', 'Services@index');
+Route::post('/services/create', 'Services@new');
+Route::get('/services/edit/{id}', 'Services@edit');
+Route::post('/services/update/{id}', 'Services@update');
+Route::get('/services/delete/{id}', 'Services@delete');
