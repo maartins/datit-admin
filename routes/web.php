@@ -28,3 +28,8 @@ Route::post('/services/create', 'Services@new');
 Route::get('/services/edit/{id}', 'Services@edit');
 Route::post('/services/update/{id}', 'Services@update');
 Route::get('/services/delete/{id}', 'Services@delete');
+
+Route::get('/invoices', 'Invoices@index');
+Route::get('/invoices/create/{id}', 'Invoices@new');
+Route::get('/invoices/view/{id}', 'Invoices@view');
+Route::get('/invoices/delete/{id}', 'Invoices@delete');

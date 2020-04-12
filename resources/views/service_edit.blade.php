@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Pakalpojumi/' . $service->description)
+@section('title', 'Pakalpojumi/' . substr($service->description, 0, 50))
 
 @section('content')
     <div>

@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Klienti/' . $client->first_name . ' ' . $client->last_name)
+@section('title', 'Klienti/' . substr($client->first_name . ' ' . $client->last_name, 0, 50))
 
 @section('content')
     <div>

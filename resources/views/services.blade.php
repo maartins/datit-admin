@@ -57,6 +57,6 @@
                 </tr>
             @endforeach
         </table>
-        {{$services->render()}}
+        <span>{{$services->render()}}</span>
     </div>
 @endsection
