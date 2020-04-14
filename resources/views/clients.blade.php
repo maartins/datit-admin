@@ -29,7 +29,7 @@
                 <th>@sortablelink('first_name', 'Vārds')</th>
                 <th>@sortablelink('last_name', 'Uzvārds')</th>
                 <th>@sortablelink('phone_number', 'Telefona nr.')</th>
-                <th>@sortablelink('invoice_count', 'Rēķins')</th>
+                <th>@sortablelink('invoice_count', 'Rēķins/i')</th>
                 <th>@sortablelink('created_at', 'Izveidots')</th>
                 <th>@sortablelink('updated_at', 'Atjaunots')</th>
             </tr>
@@ -51,11 +51,7 @@
                         <td>Trūkst</td>
                     @endif
                     @if(isset($client->invoice_count))
-                        @if($client->invoice_count > 0)
-                            <td>Ir</td>
-                        @else
-                            <td>Nav</td>
-                        @endif
+                        <td>{{$client->invoice_count}}</td>
                     @else
                         <td>Trūkst</td>
                     @endif
@@ -69,7 +65,15 @@
                     @else
                         <td>Trūkst</td>
                     @endif
-                    <td><button onclick="window.location.href='invoices/create/{{$client->id}}';">Izviedot rēķinu</button></td>
+                    @if($client->invoice_count > 0)
+                        @if($client->invoice_count == 1)
+                            <td><button onclick="window.location.href='invoices/view_client/{{$client->id}}';">Apskatīt rēķinu</button></td>
+                        @else
+                            <td><button onclick="window.location.href='invoices/view_client/{{$client->id}}';">Apskatīt rēķinus</button></td>
+                        @endif
+                    @else
+                        <td><button onclick="window.location.href='invoices/view_client/{{$client->id}}';" disabled>Apskatīt rēķinu</button></td>
+                    @endif
                     <td><button onclick="window.location.href='clients/edit/{{$client->id}}';">Rediģēt</button></td>
                     <td><button onclick="window.location.href='clients/delete/{{$client->id}}';">Dzēst</button></td>
                 </tr>
