@@ -47,7 +47,7 @@
                 @endif
             </tr>
         </table>
-        <form action="../../services">
+        <form action="../../invoices">
             <button>Atpakaļ</button>
         </form>
     </div>

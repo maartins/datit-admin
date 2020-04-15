@@ -14,22 +14,31 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('/clients');
+    return redirect('/work');
 });
 
+Route::get('/work', 'Work@index');
+
 Route::get('/clients', 'Clients@index');
-Route::post('/clients/create', 'Clients@new');
+Route::post('/clients/new', 'Clients@new');
 Route::get('/clients/edit/{id}', 'Clients@edit');
 Route::post('/clients/update/{id}', 'Clients@update');
 Route::get('/clients/delete/{id}', 'Clients@delete');
 
+Route::get('/devices', 'Devices@index');
+Route::get('/devices/new/{id}', 'Devices@new');
+Route::get('/devices/edit/{id}', 'Devices@edit');
+Route::post('/devices/update/{id}', 'Devices@update');
+Route::get('/devices/delete/{id}', 'Devices@delete');
+
 Route::get('/services', 'Services@index');
-Route::post('/services/create', 'Services@new');
+Route::post('/services/new', 'Services@new');
 Route::get('/services/edit/{id}', 'Services@edit');
 Route::post('/services/update/{id}', 'Services@update');
 Route::get('/services/delete/{id}', 'Services@delete');
 
 Route::get('/invoices', 'Invoices@index');
-Route::get('/invoices/create/{id}', 'Invoices@new');
+Route::get('/invoices/add/{id}', 'Invoices@add');
+Route::get('/invoices/new/{id}', 'Invoices@new');
 Route::get('/invoices/view/{id}', 'Invoices@view');
 Route::get('/invoices/delete/{id}', 'Invoices@delete');

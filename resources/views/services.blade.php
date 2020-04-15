@@ -5,7 +5,7 @@
 @section('content')
     <div>
         <p>Jauns pakalpojums:</p>
-        <form action="/services/create" method="post">
+        <form action="/services/new" method="post">
             <input size="80" type="text" name="description" placeholder="Apraksts"/>
             <input type="text" name="price" placeholder="Cena"/>
             {{csrf_field()}}

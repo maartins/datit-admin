@@ -17,7 +17,9 @@
             <h1 id="title">Datit/@yield('title')</h1>
 
             <ul>
+                <li><a href="/work">Darba panelis</a></li>
                 <li><a href="/clients">Klienti</a></li>
+                <li><a href="/devices">Ierīces</a></li>
                 <li><a href="/invoices">Rēķini</a></li>
                 <li><a href="/services">Pakalpojumi</a></li>
             </ul>

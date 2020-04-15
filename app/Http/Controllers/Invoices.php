@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Device;
 use App\Invoice;
+use App\Service;
 use Illuminate\Http\Request;
 
 class Invoices extends Controller
@@ -18,13 +20,20 @@ class Invoices extends Controller
         return view('invoices', ['invoices' => $invoices]);
     }
 
-    public function new($id) {
+    public function add($client_id) {
+        $client = Client::findOrFail($client_id);
+        $client->devices = Device::where('client_id', '=', $client_id)->get();
+        $client->services_aviable = Service::all();
+        return view('invoice_new', ['client' => $client]);
+    }
+
+    public function new($client_id) {
         $invoice = new Invoice();
-        $invoice->client_id = $id;
+        $invoice->client_id = $client_id;
         $invoice->save();
 
-        $client = Client::find($id);
-        $client->invoice_count = Invoices::getInvoiceCount($id);
+        $client = Client::find($client_id);
+        $client->invoice_count = Invoices::getInvoiceCount($client_id);
         $client->save();
 
         return redirect('/clients');

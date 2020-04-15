@@ -72,10 +72,11 @@
                             <td><button onclick="window.location.href='invoices/view_client/{{$client->id}}';">Apskatīt rēķinus</button></td>
                         @endif
                     @else
-                        <td><button onclick="window.location.href='invoices/view_client/{{$client->id}}';" disabled>Apskatīt rēķinu</button></td>
+                        <td><button disabled>Apskatīt rēķinu</button></td>
                     @endif
-                    <td><button onclick="window.location.href='clients/edit/{{$client->id}}';">Rediģēt</button></td>
-                    <td><button onclick="window.location.href='clients/delete/{{$client->id}}';">Dzēst</button></td>
+                    <td><button onclick="window.location.href='invoices/add/{{$client->id}}';">Izveidot rēķinu</button></td>
+                    <td><button onclick="window.location.href='clients/edit/{{$client->id}}';">Rediģēt klienta datus</button></td>
+                    <td><button onclick="window.location.href='clients/delete/{{$client->id}}';">Dzēst klientu</button></td>
                 </tr>
             @endforeach
         </table>
