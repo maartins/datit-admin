@@ -45,7 +45,7 @@ class Devices extends Controller
         $device->name = $request->name;
         $device->save();
         
-        return view('device_edit', ['device' => $device]);
+        return redirect('/devices/edit/' . $device->id);
     }
 
     public function delete($device_id) {

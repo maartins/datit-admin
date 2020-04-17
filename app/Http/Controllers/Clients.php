@@ -17,7 +17,7 @@ class Clients extends Controller
         $validatedData = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'phone_number' => 'required|numeric'
+            'phone_number' => 'numeric'
         ], [
             'first_name.required' => 'Nav norādīts Vārds.',
             'last_name.required' => 'Nav norādīts Uzvārds.',
@@ -40,6 +40,8 @@ class Clients extends Controller
     }
 
     public function update(Request $request, $id) {
+        $client = Client::findOrFail($id);
+
         $validatedData = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
@@ -51,13 +53,12 @@ class Clients extends Controller
             'phone_number.numeric' => 'Telefona nummurs ir ievadīts kļūdaini.'
         ]);
 
-        $client = Client::findOrFail($id);
         $client->first_name = $request->first_name;
         $client->last_name = $request->last_name;
         $client->phone_number = $request->phone_number;
         $client->save();
         
-        return view('client_edit', ['client' => $client]);
+        return redirect('/clients/edit/' . $client->id);
     }
 
     public function delete($id) {

@@ -5,7 +5,7 @@
 @section('content')
     <div>
         <p>Jauns klients:</p>
-        <form action="/clients/create" method="post">
+        <form action="/clients/new" method="post">
             <input type="text" name="first_name" placeholder="Vārds"/>
             <input type="text" name="last_name" placeholder="Uzvārds"/>
             <input type="text" name="phone_number" placeholder="Telefona nr."/>
