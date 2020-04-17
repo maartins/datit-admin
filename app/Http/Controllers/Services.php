@@ -50,7 +50,7 @@ class Services extends Controller
         $service->price = $request->price;
         $service->save();
         
-        return view('service_edit', ['service' => $service]);
+        return redirect('/services/edit/' . $service->id);
     }
 
     public function delete($id) {
