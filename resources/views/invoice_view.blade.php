@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Rēķini/' . $invoice->inoice_number)
+@section('title', 'Rēķini/' . $invoice->invoice_number)
 
 @section('content')
     <div>
@@ -50,5 +50,11 @@
         <form action="../../invoices">
             <button>Atpakaļ</button>
         </form>
+    </div>
+
+    <div>
+        <object data="data:application/pdf;base64,{{$invoice->pdf}}" type="application/pdf" width="80%" height="700ex">
+            <embed src="data:application/pdf;base64,{{$invoice->pdf}}" type="application/pdf"/>
+        </object>
     </div>
 @endsection

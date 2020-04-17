@@ -6,6 +6,7 @@ use App\Client;
 use App\Device;
 use App\Invoice;
 use App\Service;
+use Codedge\Fpdf\Facades\Fpdf;
 use Illuminate\Http\Request;
 
 class Invoices extends Controller
@@ -42,6 +43,26 @@ class Invoices extends Controller
     public function view($id) {
         $invoice = Invoice::findOrFail($id);
         $invoice = Invoices::setupInvoice($invoice);
+
+        Fpdf::AddPage();
+        Fpdf::SetFont('Courier', 'B', 18);
+        Fpdf::Cell(50, 25, 'Datit');
+        Fpdf::SetFont('Courier','', 14);
+        Fpdf::SetXY(10, 40);
+        Fpdf::Cell(100, 25, $invoice->first_name . ' ' . $invoice->last_name);
+        Fpdf::SetXY(10, 50);
+        Fpdf::Cell(50, 25, $invoice->phone_number);
+        Fpdf::SetXY(150, 40);
+        Fpdf::Cell(30, 25, 'Nummurs: ');
+        Fpdf::Cell(30, 25, $invoice->invoice_number);
+        Fpdf::SetXY(10, 80);
+        Fpdf::Cell(30, 25,  'Ierices: ');
+        foreach($invoice->devices as $device) {
+            Fpdf::Cell(30, 25, $device->name);
+        }
+
+        $invoice->pdf = base64_encode(Fpdf::Output('S'));
+
         return view('invoice_view', ['invoice' => $invoice]);
     }
 
@@ -61,6 +82,8 @@ class Invoices extends Controller
         $invoice->first_name = $client->first_name;
         $invoice->last_name = $client->last_name;
         $invoice->phone_number = $client->phone_number;
+        $devices = Device::where('client_id', '=', $invoice->client_id)->get();
+        $invoice->devices = $devices;
         return $invoice;
     }
 
