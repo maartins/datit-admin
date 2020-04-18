@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class Devices extends Controller
 {
     public function index() {
-        $devices = Device::sortable()->paginate(2);
+        $devices = Device::sortable()->paginate(15);
         return view('devices', ['devices' => $devices]);
     }
 
@@ -35,13 +35,14 @@ class Devices extends Controller
     }
 
     public function update(Request $request, $device_id) {
+        $device = Device::findOrFail($device_id);
+        
         $validatedData = $request->validate([
             'name' => 'required'
         ], [
             'name.required' => 'Nav norādīts Vārds.'
         ]);
 
-        $device = Device::findOrFail($device_id);
         $device->name = $request->name;
         $device->save();
         

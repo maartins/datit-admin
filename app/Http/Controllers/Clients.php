@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class Clients extends Controller
 {
     public function index() {
-        $clients = Client::sortable()->paginate(2);
+        $clients = Client::sortable()->paginate(15);
         return view('clients', ['clients' => $clients]);
     }
 
@@ -34,13 +34,13 @@ class Clients extends Controller
         return redirect('/clients');
     }
 
-    public function edit($id) {
-        $client = Client::findOrFail($id);
+    public function edit($client_id) {
+        $client = Client::findOrFail($client_id);
         return view('client_edit', ['client' => $client]);
     }
 
-    public function update(Request $request, $id) {
-        $client = Client::findOrFail($id);
+    public function update(Request $request, $client_id) {
+        $client = Client::findOrFail($client_id);
 
         $validatedData = $request->validate([
             'first_name' => 'required',
@@ -61,8 +61,8 @@ class Clients extends Controller
         return redirect('/clients/edit/' . $client->id);
     }
 
-    public function delete($id) {
-        $client = Client::findOrFail($id);
+    public function delete($client_id) {
+        $client = Client::findOrFail($client_id);
         $client->delete();
         return redirect('/clients');
     }
