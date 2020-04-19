@@ -53,7 +53,7 @@
                         <td>Trūkst</td>
                     @endif
                     <td><button onclick="window.location.href='services/edit/{{$service->id}}';">Rediģēt</button></td>
-                    <td><button onclick="window.location.href='services/delete/{{$service->id}}';">Dzēst</button></td>
+                    <td><button class="bad-button" onclick="window.location.href='services/delete/{{$service->id}}';">Dzēst</button></td>
                 </tr>
             @endforeach
         </table>

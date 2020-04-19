@@ -36,22 +36,30 @@ class Services extends Controller
     }
 
     public function update(Request $request, $service_id) {
-        $service = Service::findOrFail($service_id);
+        switch ($request->input('action')) {
+            case 'update':
+                $service = Service::findOrFail($service_id);
 
-        $validatedData = $request->validate([
-            'description' => 'required',
-            'price' => 'required|numeric'
-        ], [
-            'description.required' => 'Nav norādīts Apraksts.',
-            'price.required' => 'Nav norādīta Cena.',
-            'price.numeric' => 'Cena nav pareizi norādīta.'
-        ]);
+                $validatedData = $request->validate([
+                    'description' => 'required',
+                    'price' => 'required|numeric'
+                ], [
+                    'description.required' => 'Nav norādīts Apraksts.',
+                    'price.required' => 'Nav norādīta Cena.',
+                    'price.numeric' => 'Cena nav pareizi norādīta.'
+                ]);
 
-        $service->description = $request->description;
-        $service->price = $request->price;
-        $service->save();
+                $service->description = $request->description;
+                $service->price = $request->price;
+                $service->save();
+                
+                return redirect('/services/edit/' . $service->id);
+    
+            case 'back':
+                return redirect('/services');
+        }
+
         
-        return redirect('/services/edit/' . $service->id);
     }
 
     public function delete($service_id) {

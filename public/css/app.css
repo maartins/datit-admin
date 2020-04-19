@@ -65,3 +65,48 @@ div.device_work_list table {
     padding: 0;
     overflow-y: scroll;
 }
+
+input {
+    margin-left: 1ex;
+    border:1px solid #5a8aa8;
+    background:#FFF;
+    padding:1ex;
+}
+
+input:hover {
+    -webkit-transition:border-color 0.3s ease-in-out;
+    -moz-transition:border-color 0.3s ease-in-out;
+    transition:border-color 0.3s ease-in-out;
+    border:1px solid #0f1c95;
+}
+
+input:focus {
+    outline:0;
+    border:1px solid #0f1c95;
+}
+
+
+button:hover {
+    border-bottom: #904242 groove 2px;
+}
+
+button {
+    margin-left: 1ex;
+    margin-bottom: 1ex;
+    border: none;
+    padding: 1ex;
+    font-size: 11pt;
+    cursor: pointer;
+    background-color: #b2c4d3;
+    outline: none;
+    font-weight: bold;
+    border-bottom: #b2c4d3 groove 2px;
+}
+
+.ok-button {
+    background-color: #84ca8e;
+}
+
+.bad-button {
+    background-color: #d16d6d;
+}
