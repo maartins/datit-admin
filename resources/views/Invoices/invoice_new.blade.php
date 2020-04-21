@@ -8,9 +8,6 @@
         <input type="text" name="first_name" placeholder="Vārds" value="{{$client->first_name}}" disabled/>
         <input type="text" name="last_name" placeholder="Uzvārds" value="{{$client->last_name}}" disabled/>
         <input type="text" name="phone_number" placeholder="Telefona nr." value="{{$client->phone_number}}" disabled/>
-        <form action="../../clients">
-            <button>Atpakaļ</button>
-        </form>
     </div>
 
     <div>
@@ -44,7 +41,8 @@
 
     <div>
         <form action="../../invoices/new/{{$client->id}}">
-            <button>Izveidot rēķinu</button>
+            <button class="ok-button" type="submit" name="action" value="new">Izveidot rēķinu</button>
+            <button type="submit" name="action" value="back">Atpakaļ</button>
         </form>
     </div>
 @endsection

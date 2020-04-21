@@ -41,5 +41,5 @@ Route::get('/invoices', 'Invoices@index');
 Route::get('/invoices/add/{id}', 'Invoices@add');
 Route::get('/invoices/new/{id}', 'Invoices@new');
 Route::get('/invoices/view/{id}', 'Invoices@view');
-Route::get('/invoices/view_client/{id}', 'Invoices@viewClient');
+Route::get('/invoices/view_client/{client_id}/{invoice_id?}', 'Invoices@viewClient');
 Route::get('/invoices/delete/{id}', 'Invoices@delete');

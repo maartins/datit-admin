@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Klienti/' . substr($invoice->first_name . ' ' . $invoice->last_name, 0, 50) . '/Rēķini/' . $invoice->invoice_number)
+@section('title', 'Rēķini/' . $invoice->invoice_number)
 
 @section('content')
     <div>
@@ -47,14 +47,17 @@
                 @endif
             </tr>
         </table>
-        <form action="../../clients">
-            <button>Atpakaļ</button>
-        </form>
     </div>
 
     <div>
-        <object data="data:application/pdf;base64,{{$invoice->pdf}}" type="application/pdf" width="80%" height="700ex">
+        <object data="data:application/pdf;base64,{{$invoice->pdf}}" type="application/pdf" width="80%" height="600ex">
             <embed src="data:application/pdf;base64,{{$invoice->pdf}}" type="application/pdf"/>
         </object>
+    </div>
+
+    <div>
+        <form action="{{url()->previous()}}">
+            <button>Atpakaļ</button>
+        </form>
     </div>
 @endsection

@@ -9,7 +9,7 @@ class Services extends Controller
 {
     public function index() {
         $services = Service::sortable()->paginate(15);
-        return view('services', ['services' => $services]);
+        return view('Services.services', ['services' => $services]);
     }
 
     public function new(Request $request) {
@@ -27,12 +27,12 @@ class Services extends Controller
         $service->price = $request->price;
         $service->save();
 
-        return redirect('/services');
+        return back();
     }
 
     public function edit($service_id) {
         $service = Service::findOrFail($service_id);
-        return view('service_edit', ['service' => $service]);
+        return view('Services.service_edit', ['service' => $service]);
     }
 
     public function update(Request $request, $service_id) {
@@ -58,13 +58,11 @@ class Services extends Controller
             case 'back':
                 return redirect('/services');
         }
-
-        
     }
 
     public function delete($service_id) {
         $service = Service::findOrFail($service_id);
         $service->delete();
-        return redirect('/services');
+        return back();
     }
 }

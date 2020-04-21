@@ -76,7 +76,7 @@
                     @endif
                     <td><button onclick="window.location.href='invoices/add/{{$client->id}}';">Izveidot rēķinu</button></td>
                     <td><button onclick="window.location.href='clients/edit/{{$client->id}}';">Rediģēt klienta datus</button></td>
-                    <td><button onclick="window.location.href='clients/delete/{{$client->id}}';">Dzēst klientu</button></td>
+                    <td><button class="bad-button" onclick="window.location.href='clients/delete/{{$client->id}}';">Dzēst klientu</button></td>
                 </tr>
             @endforeach
         </table>

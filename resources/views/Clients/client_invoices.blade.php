@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Rēķini')
+@section('title', 'Klienti/' . substr($invoices[0]->first_name . ' ' . $invoices[0]->last_name, 0, 50) . '/Rēķini')
 
 @section('content')
     <div class="table">
@@ -45,11 +45,17 @@
                     @else
                         <td>Trūkst</td>
                     @endif
-                    <td><button onclick="window.location.href='invoices/view/{{$invoice->id}}';">Apskatīt</button></td>
-                    <td><button onclick="window.location.href='invoices/delete/{{$invoice->id}}';">Dzēst</button></td>
+                    <td><button onclick="window.location.href='../../../invoices/view_client/{{$invoice->client_id}}/{{$invoice->id}}';">Apskatīt</button></td>
+                    <td><button class="bad-button" onclick="window.location.href='../../../invoices/delete/{{$invoice->id}}';">Dzēst</button></td>
                 </tr>
             @endforeach
         </table>
         <span>{{$invoices->render()}}</span>
+    </div>
+
+    <div>
+        <form action="../../clients">
+            <button>Atpakaļ</button>
+        </form>
     </div>
 @endsection

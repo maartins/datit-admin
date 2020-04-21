@@ -28,7 +28,7 @@
                         <td>Trūkst</td>
                     @endif
                     <td><button onclick="window.location.href='devices/edit/{{$device->id}}';">Rediģēt ierīces datus</button></td>
-                    <td><button onclick="window.location.href='devices/delete/{{$device->id}}';">Dzēst ierīci</button></td>
+                    <td><button class="bad-button" onclick="window.location.href='devices/delete/{{$device->id}}';">Dzēst ierīci</button></td>
                 </tr>
             @endforeach
         </table>
