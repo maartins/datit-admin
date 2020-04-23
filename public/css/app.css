@@ -66,11 +66,17 @@ div.device_work_list table {
     overflow-y: scroll;
 }
 
+
 input {
     margin-left: 1ex;
     border:1px solid #5a8aa8;
-    background:#FFF;
+    background:#FFFFFF;
     padding:1ex;
+}
+
+input[readonly] {
+    border:1px solid #8b8b8b;
+    background:#d3d3d3;
 }
 
 input:hover {
@@ -101,6 +107,15 @@ button {
     outline: none;
     font-weight: bold;
     border-bottom: #b2c4d3 groove 2px;
+}
+
+button:disabled {
+    background-color: #9e9e9e;
+    border-bottom: #adb3b8 groove 2px;
+}
+
+button:disabled:hover {
+    border-bottom: #adb3b8 groove 2px;
 }
 
 .ok-button {

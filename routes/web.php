@@ -26,7 +26,6 @@ Route::post('/clients/update/{id}', 'Clients@update');
 Route::get('/clients/delete/{id}', 'Clients@delete');
 
 Route::get('/devices', 'Devices@index');
-Route::get('/devices/new/{id}', 'Devices@new');
 Route::get('/devices/edit/{id}', 'Devices@edit');
 Route::post('/devices/update/{id}', 'Devices@update');
 Route::get('/devices/delete/{id}', 'Devices@delete');
@@ -38,8 +37,8 @@ Route::post('/services/update/{id}', 'Services@update');
 Route::get('/services/delete/{id}', 'Services@delete');
 
 Route::get('/invoices', 'Invoices@index');
-Route::get('/invoices/add/{id}', 'Invoices@add');
-Route::get('/invoices/new/{id}', 'Invoices@new');
+Route::get('/invoices/add/{client_id}', 'Invoices@add');
+Route::post('/invoices/new/', 'Invoices@new');
 Route::get('/invoices/view/{id}', 'Invoices@view');
 Route::get('/invoices/view_client/{client_id}/{invoice_id?}', 'Invoices@viewClient');
 Route::get('/invoices/delete/{id}', 'Invoices@delete');

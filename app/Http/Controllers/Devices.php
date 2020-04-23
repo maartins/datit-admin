@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use App\Device;
+use App\DeviceService;
+use App\Invoice;
+use App\InvoiceClientDevice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,21 +15,6 @@ class Devices extends Controller
     public function index() {
         $devices = Device::sortable()->paginate(15);
         return view('Devices.devices', ['devices' => $devices]);
-    }
-
-    public function new(Request $request, $client_id) {
-        $validatedData = $request->validate([
-            'name' => 'required'
-        ], [
-            'name.required' => 'Nav norādīts Vārds.'
-        ]);
-
-        $device = new Device();
-        $device->name = $request->name;
-        $device->client_id = $client_id;
-        $device->save();
-
-        return redirect('/invoices/add/' . $client_id);
     }
 
     public function edit($device_id) {
@@ -42,7 +30,7 @@ class Devices extends Controller
                 $validatedData = $request->validate([
                     'name' => 'required'
                 ], [
-                    'name.required' => 'Nav norādīts Vārds.'
+                    'name.required' => 'Nav norādīts ierīces Vārds.'
                 ]);
 
                 $device->name = $request->name;
@@ -56,6 +44,11 @@ class Devices extends Controller
     }
 
     public function delete($device_id) {
+        $device_services = DeviceService::where('device_id', '=', $device_id)->get();
+        foreach ($device_services as $device_service) {
+            $device_service->delete();
+        }
+
         $device = Device::findOrFail($device_id);
         $device->delete();
         return back();

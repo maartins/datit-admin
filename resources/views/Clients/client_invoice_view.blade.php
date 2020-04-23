@@ -56,7 +56,7 @@
     </div>
 
     <div>
-        <form action="{{url()->previous()}}">
+        <form action="../../clients">
             <button>Atpakaļ</button>
         </form>
     </div>

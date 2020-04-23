@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Device;
+use App\DeviceService;
+use App\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -68,6 +71,19 @@ class Clients extends Controller
     }
 
     public function delete($client_id) {
+        $invoices = Invoice::where('client_id', '=', $client_id)->get();
+        foreach ($invoices as $invoice) {
+            $devices = Device::where('invoice_id', '=', $invoice->id)->get();
+            foreach ($devices as $device) {
+                $device_services = DeviceService::where('device_id', '=', $device->id)->get();
+                foreach ($device_services as $device_service) {
+                    $device_service->delete();
+                }
+                $device->delete();
+            }
+            $invoice->delete();
+        }
+
         $client = Client::findOrFail($client_id);
         $client->delete();
         return back();
