@@ -179,7 +179,6 @@ return [
         * Third Party Service Providers...
         */
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
-        Codedge\Fpdf\FpdfServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
