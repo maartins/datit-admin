@@ -66,13 +66,9 @@
                         <td>Trūkst</td>
                     @endif
                     @if($client->invoice_count > 0)
-                        @if($client->invoice_count == 1)
-                            <td><button onclick="window.location.href='invoices/view_client/{{$client->id}}';">Apskatīt rēķinu</button></td>
-                        @else
-                            <td><button onclick="window.location.href='invoices/view_client/{{$client->id}}';">Apskatīt rēķinus</button></td>
-                        @endif
+                        <td><button onclick="window.location.href='invoices/view_client/{{$client->id}}';">Apskatīt rēķinus</button></td>
                     @else
-                        <td><button disabled>Apskatīt rēķinu</button></td>
+                        <td><button disabled>Apskatīt rēķinus</button></td>
                     @endif
                     <td><button onclick="window.location.href='invoices/add/{{$client->id}}';">Izveidot rēķinu</button></td>
                     <td><button onclick="window.location.href='clients/edit/{{$client->id}}';">Rediģēt klienta datus</button></td>

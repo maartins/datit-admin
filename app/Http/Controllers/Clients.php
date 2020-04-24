@@ -9,24 +9,36 @@ use App\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class Clients extends Controller
-{
+class Clients extends Controller {
+
+    private $rules = [
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'phone_number' => 'numeric'
+    ];
+
+    private $rule_texts = [
+        'first_name.required' => 'Nav norādīts Vārds.',
+        'last_name.required' => 'Nav norādīts Uzvārds.',
+        'phone_number.required' => 'Nav norādīts Telefona nummurs',
+        'phone_number.numeric' => 'Telefona nummurs ir ievadīts kļūdaini.'
+    ];
+
     public function index() {
         $clients = Client::sortable()->paginate(15);
+        
+        foreach ($clients as $client) {
+            $invoices = Invoice::where('client_id', '=', $client->id)->get();
+            if (!empty($invoices)) {
+                $client->invoice_count = $invoices->count();
+            }
+        }
+
         return view('Clients.clients', ['clients' => $clients]);
     }
 
     public function new(Request $request) {
-        $validatedData = $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'phone_number' => 'numeric'
-        ], [
-            'first_name.required' => 'Nav norādīts Vārds.',
-            'last_name.required' => 'Nav norādīts Uzvārds.',
-            'phone_number.required' => 'Nav norādīts Telefona nummurs',
-            'phone_number.numeric' => 'Telefona nummurs ir ievadīts kļūdaini.'
-        ]);
+        $validatedData = $request->validate($this->rules, $this->rule_texts);
 
         $client = new Client();
         $client->first_name = $request->first_name;
@@ -47,16 +59,7 @@ class Clients extends Controller
             case 'update':
                 $client = Client::findOrFail($client_id);
 
-                $validatedData = $request->validate([
-                    'first_name' => 'required',
-                    'last_name' => 'required',
-                    'phone_number' => 'required|numeric'
-                ], [
-                    'first_name.required' => 'Nav norādīts Vārds.',
-                    'last_name.required' => 'Nav norādīts Uzvārds.',
-                    'phone_number.required' => 'Nav norādīts Telefona nummurs',
-                    'phone_number.numeric' => 'Telefona nummurs ir ievadīts kļūdaini.'
-                ]);
+                $validatedData = $request->validate($this->rules, $this->rule_texts);
 
                 $client->first_name = $request->first_name;
                 $client->last_name = $request->last_name;

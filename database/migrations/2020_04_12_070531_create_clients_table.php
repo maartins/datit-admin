@@ -19,7 +19,6 @@ class CreateClientsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone_number');
-            $table->unsignedInteger('invoice_count')->default(0);
         });
     }
 
