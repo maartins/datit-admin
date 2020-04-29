@@ -21,8 +21,8 @@ Route::get('/work', 'Work@index');
 
 Route::get('/clients', 'Clients@index');
 Route::post('/clients/new', 'Clients@new');
-Route::get('/clients/edit/{id}', 'Clients@edit');
-Route::post('/clients/update/{id}', 'Clients@update');
+Route::get('/clients/edit/{client}', 'Clients@edit');
+Route::post('/clients/update/{client}', 'Clients@update');
 Route::get('/clients/delete/{id}', 'Clients@delete');
 
 Route::get('/devices', 'Devices@index');

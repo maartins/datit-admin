@@ -48,18 +48,20 @@ class Invoices extends Controller {
                 $client = Client::findOrFail($request->client_id);
                 $client->save();
 
-                foreach ($request->devices as $name) {
-                    $device = new Device();
-                    $device->name = $name;
-                    $device->invoice_id = $invoice->id;
-                    $device->save();
+                if (!empty($request->devices)) {
+                    foreach ($request->devices as $name) {
+                        $device = new Device();
+                        $device->name = $name;
+                        $device->invoice_id = $invoice->id;
+                        $device->save();
 
-                    if (!empty($request[$device->name . '_services'])) {
-                        foreach ($request[$device->name . '_services'] as $service_id) {
-                            $device_service = new DeviceService();
-                            $device_service->device_id = $device->id;
-                            $device_service->service_id = $service_id;
-                            $device_service->save();
+                        if (!empty($request[$device->name . '_services'])) {
+                            foreach ($request[$device->name . '_services'] as $service_id) {
+                                $device_service = new DeviceService();
+                                $device_service->device_id = $device->id;
+                                $device_service->service_id = $service_id;
+                                $device_service->save();
+                            }
                         }
                     }
                 }
@@ -137,9 +139,7 @@ class Invoices extends Controller {
     private function setupInvoice($invoice) {
         $invoice->invoice_number = str_pad($invoice->id, 6, '0', STR_PAD_LEFT);
         $client = Client::findOrFail($invoice->client_id);
-        $invoice->first_name = $client->first_name;
-        $invoice->last_name = $client->last_name;
-        $invoice->phone_number = $client->phone_number;
+        $invoice->client = $client;
         $invoice->devices = Device::where('invoice_id', '=', $invoice->id)->get();
         $invoice->total_sum = 0;
 

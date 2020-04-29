@@ -19,6 +19,9 @@ class CreateClientsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone_number');
+            $table->string('address');
+            $table->string('client_type')->default('person');
+            $table->string('company_name')->default('');
         });
     }
 

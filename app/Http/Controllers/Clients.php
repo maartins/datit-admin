@@ -5,24 +5,10 @@ namespace App\Http\Controllers;
 use App\Client;
 use App\Device;
 use App\DeviceService;
+use App\Http\Requests\ClientRequest;
 use App\Invoice;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class Clients extends Controller {
-
-    private $rules = [
-        'first_name' => 'required',
-        'last_name' => 'required',
-        'phone_number' => 'numeric'
-    ];
-
-    private $rule_texts = [
-        'first_name.required' => 'Nav norādīts Vārds.',
-        'last_name.required' => 'Nav norādīts Uzvārds.',
-        'phone_number.required' => 'Nav norādīts Telefona nummurs',
-        'phone_number.numeric' => 'Telefona nummurs ir ievadīts kļūdaini.'
-    ];
 
     public function index() {
         $clients = Client::sortable()->paginate(15);
@@ -37,33 +23,22 @@ class Clients extends Controller {
         return view('Clients.clients', ['clients' => $clients]);
     }
 
-    public function new(Request $request) {
-        $validatedData = $request->validate($this->rules, $this->rule_texts);
-
+    public function new(ClientRequest $request) {
         $client = new Client();
-        $client->first_name = $request->first_name;
-        $client->last_name = $request->last_name;
-        $client->phone_number = $request->phone_number;
+        $client->createFromArray($request);
         $client->save();
 
         return back();
     }
 
-    public function edit($client_id) {
-        $client = Client::findOrFail($client_id);
+    public function edit(Client $client) {
         return view('Clients.client_edit', ['client' => $client]);
     }
 
-    public function update(Request $request, $client_id) {
+    public function update(ClientRequest $request, Client $client) {
         switch ($request->input('action')) {
             case 'update':
-                $client = Client::findOrFail($client_id);
-
-                $validatedData = $request->validate($this->rules, $this->rule_texts);
-
-                $client->first_name = $request->first_name;
-                $client->last_name = $request->last_name;
-                $client->phone_number = $request->phone_number;
+                $client->createFromArray($request);
                 $client->save();
                 
                 return redirect('/clients/edit/' . $client->id);

@@ -1,20 +1,88 @@
 @extends('main')
 
-@section('title', 'Darba panelis')
+@section('title', 'Jauns pasūtījums')
 
 @section('content')
-    <div>
-        <p>Klienta dati:</p>
-        <input type="text" name="first_name" placeholder="Vārds"/>
-        <input type="text" name="last_name" placeholder="Uzvārds"/>
-        <input type="text" name="phone_number" placeholder="Telefona nr."/>
-    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#company").hide();
+        });
 
-    <div>
-        <form action="">
-            <input type="text" name="name" placeholder="Nosaukums"/>
-            {{csrf_field()}}
-            <button>Izveidot ierīci</button>
+        function show(value){
+            if (value == "person") {
+                $("#company").hide();
+            } else {
+                $("#company").show();
+            }
+        }
+    </script>
+
+    <form action="">
+        {{csrf_field()}}
+        <div>
+            <span class="radio-toolbar">
+                <p>Klients:</p>
+                <input type="radio" id="company_radio" name="client_type" value="company" onchange="show(this.value)"/><label for="company_radio">Juridiskais k.</label>
+                <input type="radio" id="person_radio" name="client_type" value="person" onchange="show(this.value)" checked/><label for="person_radio">Privātais k.</label>
+            </span>
+            <span>
+                <p>Klienta dati:</p>
+                <span id="company">
+                    <input type="text" name="company_name" placeholder="Uzņēmums"/>
+                    </br>
+                    </br>
+                </span>
+                <input type="text" name="first_name" placeholder="Vārds Uzvārds"/>
+                <input type="text" name="phone_number" placeholder="Telefona nr."/>
+                <input type="text" name="address" placeholder="Adrese" size="60"/>
+            </span>
+        </div>
+
+        <div>
+            <span>
+                <p>Iekārta:</p>
+                <select>
+                    <option value="1">Portatīvais</option>
+                    <option value="2">Stacianārais</option>
+                    <option value="3">LCD monitors</option>
+                    <option value="4">Vadības moduļi</option>
+                </select>
+                <input type="text" name="name" placeholder="Nosaukums"/>
+                <input type="text" name="complectation" placeholder="Komplektācija"/>
+            </span>
+             <span>
+                <p>Problēmas apraksts:</p>
+                <input type="text" name="problem" placeholder="Problēma" size="70"/>
+                <input type="text" name="notes" placeholder="Piezīmes" size="50"/>
+            </span>
+            <span class="device_work_list">
+                <span>
+                    <p>Paredzamie darbi:</p>
+                    <select>
+                        <option value="1">Dzelži</option>
+                        <option value="2">Programmatūra</option>
+                        <option value="3">Citi</option>
+                    </select>
+                </span>
+                <span>
+                    <table>
+                        <tr><td><input type="checkbox" name="s_services" value="1"></td><td>Programmatūra - Pārinstalēt</td><td><b>10.00</b></td></tr>
+                        <tr><td><input type="checkbox" name="s_services" value="2"></td><td>Programmatūra - Attārpot</td><td><b>10.00</b></td></tr>
+                        <tr><td><input type="checkbox" name="s_services" value="3"></td><td>Dzelži - pārlodēt</td><td><b>10.00</b></td></tr>
+                        <tr><td><input type="checkbox" name="s_services" value="3"></td><td>Dzelži - pārlodēt</td><td><b>10.00</b></td></tr>
+                        <tr><td><input type="checkbox" name="s_services" value="3"></td><td>Dzelži - pārlodēt</td><td><b>10.00</b></td></tr>
+                        <tr><td><input type="checkbox" name="s_services" value="4"></td><td>Dzelži - pielīmēt</td><td><b>10.00</b></td></tr>
+                        <tr><td><input type="checkbox" name="s_services" value="4"></td><td>Dzelži - pielīmēt</td><td><b>10.00</b></td></tr>
+                        <tr><td><input type="checkbox" name="s_services" value="4"></td><td>Dzelži - pielīmēt</td><td><b>10.00</b></td></tr>
+                    </table>
+                    <input type="text" name="new_service" placeholder="Apraksts" size="50"/>
+                    <button>+ Jauns darbs</button>
+                </span>
+            </span>
+
+            <span>
+                <button>+ Papildus iekārta</button>
+            </span>
             @if(count($errors))
                 <div>
                     <ul>
@@ -24,12 +92,10 @@
                     </ul>
                 </div>
             @endif
-        </form>
-    </div>
+        </div>
 
-    <div>
-        <form action=".">
+        <div>
             <button>Izveidot rēķinu</button>
-        </form>
-    </div>
+        </div>
+    <form action="">
 @endsection
