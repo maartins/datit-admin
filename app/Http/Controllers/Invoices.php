@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Client;
 use App\Device;
 use App\DeviceService;
+use App\DeviceType;
+use App\Http\Requests\InvoiceRequest;
 use App\Invoice;
 use App\Service;
 use PDF;
-use Illuminate\Http\Request;
 
 class Invoices extends Controller {
 
@@ -37,7 +38,7 @@ class Invoices extends Controller {
         return view('Invoices.invoice_new', ['invoice' => $invoice]);
     }
 
-    public function new(Request $request) {
+    public function new(InvoiceRequest $request) {
         switch ($request->input('action')) {
             case 'new':
                 $invoice = new Invoice();
@@ -48,10 +49,12 @@ class Invoices extends Controller {
                 $client = Client::findOrFail($request->client_id);
                 $client->save();
 
-                if (!empty($request->devices)) {
-                    foreach ($request->devices as $name) {
+                if (!empty($request->device_types)) {
+                    for ($i = 0; $i < count($request->device_types); $i++) { 
                         $device = new Device();
-                        $device->name = $name;
+                        $device->type = $request->device_types[$i];
+                        $device->name = $request->device_name[$i];
+                        $device->additions = $request->device_additions[$i];
                         $device->invoice_id = $invoice->id;
                         $device->save();
 
@@ -69,17 +72,13 @@ class Invoices extends Controller {
                 session()->forget('invoice');
                 return redirect('/clients');
             case 'new_device':
-                $validatedData = $request->validate([
-                    'name' => 'required'
-                ], [
-                    'name.required' => 'Nav norādīts ierīces Vārds.'
-                ]);
-                
                 $invoice = session('invoice');
                 $device = new Device();
                 $device->id = empty(Device::latest()->first()->id) ? 1 : Device::latest()->first()->id + 1;
                 $device->invoice_id = $invoice->id;
-                $device->name = $request->name;
+                $device->type = $request->device_type;
+                $device->name = $request->device_name;
+                $device->additions = $request->device_additions;
                 $device->services_aviable = Service::all();
                 $invoice->devices[] = $device;
                 session()->flash('invoice', $invoice);
@@ -140,6 +139,7 @@ class Invoices extends Controller {
         $invoice->invoice_number = str_pad($invoice->id, 6, '0', STR_PAD_LEFT);
         $client = Client::findOrFail($invoice->client_id);
         $invoice->client = $client;
+        $invoice->device_types = DeviceType::all();
         $invoice->devices = Device::where('invoice_id', '=', $invoice->id)->get();
         $invoice->total_sum = 0;
 

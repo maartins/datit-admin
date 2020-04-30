@@ -23,12 +23,12 @@ Route::get('/clients', 'Clients@index');
 Route::post('/clients/new', 'Clients@new');
 Route::get('/clients/edit/{client}', 'Clients@edit');
 Route::post('/clients/update/{client}', 'Clients@update');
-Route::get('/clients/delete/{id}', 'Clients@delete');
+Route::get('/clients/delete/{client}', 'Clients@delete');
 
 Route::get('/devices', 'Devices@index');
-Route::get('/devices/edit/{id}', 'Devices@edit');
-Route::post('/devices/update/{id}', 'Devices@update');
-Route::get('/devices/delete/{id}', 'Devices@delete');
+Route::get('/devices/edit/{device}', 'Devices@edit');
+Route::post('/devices/update/{device}', 'Devices@update');
+Route::get('/devices/delete/{device}', 'Devices@delete');
 
 Route::get('/services', 'Services@index');
 Route::post('/services/new', 'Services@new');

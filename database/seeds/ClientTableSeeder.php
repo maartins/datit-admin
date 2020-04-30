@@ -2,10 +2,8 @@
 
 use App\Client;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class ClientTableSeeder extends Seeder
-{
+class ClientTableSeeder extends Seeder {
     /**
      * Run the database seeds.
      *

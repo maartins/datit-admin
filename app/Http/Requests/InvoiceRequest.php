@@ -4,18 +4,31 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClientRequest extends FormRequest {
-    private $rules = [
+class InvoiceRequest extends FormRequest {
+
+    private $clien_rules = [
         'name' => 'required',
         'phone_number' => 'numeric',
         'address' => 'required'
     ];
 
-    private $messages = [
+    private $client_messages = [
         'name.required' => 'Nav norādīts Vārds.',
         'phone_number.required' => 'Nav norādīts Telefona nummurs',
         'phone_number.numeric' => 'Telefona nummurs ir ievadīts kļūdaini.',
         'address.required' => 'Nav norādīta Adrese.'
+    ];
+
+    private $device_rules = [
+        'device_type' => 'required',
+        'device_name' => 'required',
+        'device_additions' => 'required'
+    ];
+
+    private $device_messages = [
+        'device_type.required' => 'Nav norādīts Tips.',
+        'device_name.required' => 'Nav norādīts Nosaukums.',
+        'device_additions.required' => 'Nav norādīta Komplektācija.'
     ];
 
     /**
@@ -33,13 +46,12 @@ class ClientRequest extends FormRequest {
      * @return array
      */
     public function rules() {
-        if ($this->client_type == 'company') {
-            $this->rules['company_name'] = 'required';
-        }
-
         switch ($this->input('action')) {
-            case 'update':
-                return $this->rules;
+            case 'new':
+                //dd($this);
+                return $this->clien_rules;
+            case 'new_device':
+                return $this->device_rules;
             case 'back':
                 return [];
         }
@@ -51,13 +63,11 @@ class ClientRequest extends FormRequest {
      * @return array
      */
     public function messages() {
-        if ($this->client_type == 'company') {
-            $this->messages['company_name.required'] = 'Nav norādīts Uzņēmuma nosaukums.';
-        }
-        
         switch ($this->input('action')) {
-            case 'update':
-                return $this->messages;
+            case 'new':
+                return $this->client_messages;
+            case 'new_device':
+                return $this->device_messages;
             case 'back':
                 return [];
         }

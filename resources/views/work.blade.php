@@ -41,19 +41,19 @@
         <div>
             <span>
                 <p>Iekārta:</p>
-                <select>
+                <select name="device_type">
                     <option value="1">Portatīvais</option>
                     <option value="2">Stacianārais</option>
                     <option value="3">LCD monitors</option>
                     <option value="4">Vadības moduļi</option>
                 </select>
-                <input type="text" name="name" placeholder="Nosaukums"/>
-                <input type="text" name="complectation" placeholder="Komplektācija"/>
+                <input size="60" type="text" name="name" placeholder="Nosaukums"/>
+                <input size="60" type="text" name="additions" placeholder="Komplektācija"/>
             </span>
              <span>
                 <p>Problēmas apraksts:</p>
-                <input type="text" name="problem" placeholder="Problēma" size="70"/>
-                <input type="text" name="notes" placeholder="Piezīmes" size="50"/>
+                <input type="text" name="problem" placeholder="Problēma" size="80"/>
+                <input type="text" name="notes" placeholder="Piezīmes" size="60"/>
             </span>
             <span class="device_work_list">
                 <span>

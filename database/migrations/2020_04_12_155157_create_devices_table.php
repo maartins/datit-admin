@@ -16,7 +16,9 @@ class CreateDevicesTable extends Migration
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('type')->default('other');
             $table->string('name');
+            $table->string('additions');
             $table->foreignId('invoice_id')->references('id')->on('invoices');
         });
     }

@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
 use App\Device;
 use App\DeviceService;
-use App\Invoice;
-use App\InvoiceClientDevice;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\DeviceType;
+use App\Http\Requests\DeviceRequest;
 
 class Devices extends Controller
 {
@@ -17,22 +14,14 @@ class Devices extends Controller
         return view('Devices.devices', ['devices' => $devices]);
     }
 
-    public function edit($device_id) {
-        $device = Device::findOrFail($device_id);
+    public function edit(Device $device) {
+        $device->types = DeviceType::all();
         return view('Devices.device_edit', ['device' => $device]);
     }
 
-    public function update(Request $request, $device_id) {
+    public function update(DeviceRequest $request, Device $device) {
         switch ($request->input('action')) {
             case 'update':
-                $device = Device::findOrFail($device_id);
-                
-                $validatedData = $request->validate([
-                    'name' => 'required'
-                ], [
-                    'name.required' => 'Nav norādīts ierīces Vārds.'
-                ]);
-
                 $device->name = $request->name;
                 $device->save();
 
@@ -43,13 +32,13 @@ class Devices extends Controller
         }
     }
 
-    public function delete($device_id) {
-        $device_services = DeviceService::where('device_id', '=', $device_id)->get();
+    public function delete(Device $device) {
+        $device_services = DeviceService::where('device_id', '=', $device->id)->get();
+
         foreach ($device_services as $device_service) {
             $device_service->delete();
         }
 
-        $device = Device::findOrFail($device_id);
         $device->delete();
         return back();
     }

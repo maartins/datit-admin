@@ -92,7 +92,8 @@ select {
     margin-left: 1ex;
     border: 1px solid #5a8aa8;
     background:#FFFFFF;
-    padding: 0.7ex;
+    padding: 0.75ex;
+    padding-right: 2.2ex;
 }
 
 input {

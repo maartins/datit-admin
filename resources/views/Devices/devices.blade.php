@@ -6,14 +6,26 @@
     <div class="table">
         <table>
             <tr>
+                <th>@sortablelink('type', 'Tips')</th>
                 <th>@sortablelink('name', 'Nosaukums')</th>
+                <th>@sortablelink('additions', 'Komplektācija')</th>
                 <th>@sortablelink('created_at', 'Izveidots')</th>
                 <th>@sortablelink('updated_at', 'Atjaunots')</th>
             </tr>
             @foreach($devices as $device)
                 <tr>
+                    @if(isset($device->type))
+                        <td>{{$device->type}}</td>
+                    @else
+                        <td>Trūkst</td>
+                    @endif
                     @if(isset($device->name))
                         <td>{{$device->name}}</td>
+                    @else
+                        <td>Trūkst</td>
+                    @endif
+                    @if(isset($device->additions))
+                        <td>{{$device->additions}}</td>
                     @else
                         <td>Trūkst</td>
                     @endif

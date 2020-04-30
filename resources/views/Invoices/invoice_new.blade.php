@@ -51,29 +51,44 @@
                 </span>
                 <input type="text" name="name" placeholder="Vārds Uzvārds" value="{{$invoice->client->first_name . ' ' . $invoice->client->last_name}}" readonly/>
                 <input type="text" name="phone_number" placeholder="Telefona nr." value="{{$invoice->client->phone_number}}" readonly/>
-                <input type="text" name="address" placeholder="Adrese" size="60" value="{{$invoice->client->address}}" readonly/>
+                <input size="60" type="text" name="address" placeholder="Adrese" value="{{$invoice->client->address}}" readonly/>
             </span>
         </div>
 
         <div>
-            <input type="text" name="name" placeholder="Nosaukums"/>
-            <input type="text" name="complectation" placeholder="Komplektācija"/>
-            {{csrf_field()}}
-            <button type="submit" name="action" value="new_device">Izveidot ierīci</button>
-            @if(count($errors))
-                <div>
-                    <ul>
-                        @foreach($errors->all() as $error)
-                            <li>{{$error}}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+             <span>
+                <p>Ierīces dati:</p>
+                <select name="device_type">
+                    @foreach($invoice->device_types as $type)
+                        <option value="{{$type->id}}">{{$type->name}}</option>
+                    @endforeach
+                </select>
+                <input size="60" type="text" name="device_name" placeholder="Nosaukums"/>
+                <input size="60" type="text" name="device_additions" placeholder="Komplektācija"/>
+                {{csrf_field()}}
+                @if(count($errors))
+                    <div>
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </span>
+            <span>
+                <button type="submit" name="action" value="new_device">+ Papildus iekārta</button>
+            </span>
         </div>
 
         @foreach($invoice->devices as $device)
             <div class="device_work_list">
-                <p>Ierīce: <b><input type="text" name="devices[]" placeholder="Nosaukums" value="{{$device->name}}" readonly/></b></p>
+                <span>
+                    <p>Ierīce:</p>
+                    <input type="text" name="device_types[]" placeholder="Tips" value="{{$device->type}}" readonly/>
+                    <input type="text" name="device_names[]" placeholder="Nosaukums" value="{{$device->name}}" readonly/>
+                    <input type="text" name="device_additions[]" placeholder="Komplektācija" value="{{$device->additions}}" readonly/>
+                </span>
                 <p>Veicamie darbi:</p>
                 <table>
                     @foreach($device->services_aviable as $service)
