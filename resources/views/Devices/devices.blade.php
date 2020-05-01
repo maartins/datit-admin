@@ -14,8 +14,8 @@
             </tr>
             @foreach($devices as $device)
                 <tr>
-                    @if(isset($device->type))
-                        <td>{{$device->type}}</td>
+                    @if(isset($device->type_name))
+                        <td>{{$device->type_name}}</td>
                     @else
                         <td>Trūkst</td>
                     @endif

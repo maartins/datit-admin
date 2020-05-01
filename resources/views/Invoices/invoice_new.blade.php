@@ -64,7 +64,7 @@
                     @endforeach
                 </select>
                 <input size="60" type="text" name="device_name" placeholder="Nosaukums"/>
-                <input size="60" type="text" name="device_additions" placeholder="Komplektācija"/>
+                <input size="60" type="text" name="device_addition" placeholder="Komplektācija"/>
                 {{csrf_field()}}
                 @if(count($errors))
                     <div>
@@ -85,7 +85,7 @@
             <div class="device_work_list">
                 <span>
                     <p>Ierīce:</p>
-                    <input type="text" name="device_types[]" placeholder="Tips" value="{{$device->type}}" readonly/>
+                    <input type="text" name="device_types[]" placeholder="Tips" value="{{$device->type_name}}" readonly/>
                     <input type="text" name="device_names[]" placeholder="Nosaukums" value="{{$device->name}}" readonly/>
                     <input type="text" name="device_additions[]" placeholder="Komplektācija" value="{{$device->additions}}" readonly/>
                 </span>

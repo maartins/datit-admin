@@ -9,7 +9,11 @@
                     <p>Ierīces dati:</p>
                     <select name="device_type">
                         @foreach($device->types as $type)
-                            <option value="{{$type->id}}">{{$type->name}}</option>
+                            @if($device->selected == $type->id)
+                                <option value="{{$type->id}}" selected>{{$type->name}}</option>
+                            @else
+                                <option value="{{$type->id}}">{{$type->name}}</option>
+                            @endif
                         @endforeach
                     </select>
                     <input size="60" type="text" name="name" placeholder="Nosaukums" value="{{$device->name}}"/>

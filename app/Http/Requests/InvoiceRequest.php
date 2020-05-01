@@ -22,13 +22,13 @@ class InvoiceRequest extends FormRequest {
     private $device_rules = [
         'device_type' => 'required',
         'device_name' => 'required',
-        'device_additions' => 'required'
+        'device_addition' => 'required'
     ];
 
     private $device_messages = [
         'device_type.required' => 'Nav norādīts Tips.',
         'device_name.required' => 'Nav norādīts Nosaukums.',
-        'device_additions.required' => 'Nav norādīta Komplektācija.'
+        'device_addition.required' => 'Nav norādīta Komplektācija.'
     ];
 
     /**
@@ -48,7 +48,6 @@ class InvoiceRequest extends FormRequest {
     public function rules() {
         switch ($this->input('action')) {
             case 'new':
-                //dd($this);
                 return $this->clien_rules;
             case 'new_device':
                 return $this->device_rules;

@@ -53,7 +53,7 @@ class Invoices extends Controller {
                     for ($i = 0; $i < count($request->device_types); $i++) { 
                         $device = new Device();
                         $device->type = $request->device_types[$i];
-                        $device->name = $request->device_name[$i];
+                        $device->name = $request->device_names[$i];
                         $device->additions = $request->device_additions[$i];
                         $device->invoice_id = $invoice->id;
                         $device->save();
@@ -78,7 +78,7 @@ class Invoices extends Controller {
                 $device->invoice_id = $invoice->id;
                 $device->type = $request->device_type;
                 $device->name = $request->device_name;
-                $device->additions = $request->device_additions;
+                $device->additions = $request->device_addition;
                 $device->services_aviable = Service::all();
                 $invoice->devices[] = $device;
                 session()->flash('invoice', $invoice);
@@ -143,8 +143,16 @@ class Invoices extends Controller {
         $invoice->devices = Device::where('invoice_id', '=', $invoice->id)->get();
         $invoice->total_sum = 0;
 
+        $types = DeviceType::all();
+
         if (!empty($invoice->devices)) {
             foreach ($invoice->devices as $device) {
+                foreach ($types as $type) {
+                    if ($type->id == $device->type) {
+                        $device->type_name = $type->name;
+                    }
+                }
+
                 $service_ids = DeviceService::where('device_id', '=', $device->id)->get('service_id');
                 if (!empty($service_ids)) {
                     $device->services = Service::find($service_ids);
