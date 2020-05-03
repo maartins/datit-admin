@@ -80,6 +80,15 @@ class Invoices extends Controller {
                 $device->name = $request->device_name;
                 $device->additions = $request->device_addition;
                 $device->services_aviable = Service::all();
+
+                $device->types = DeviceType::all();
+        
+                foreach ($device->types as $type) {
+                    if ($type->id == $device->type) {
+                        $device->selected = $device->type;
+                    }
+                }
+
                 $invoice->devices[] = $device;
                 session()->flash('invoice', $invoice);
 

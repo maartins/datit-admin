@@ -49,7 +49,8 @@
                     </br>
                     </br>
                 </span>
-                <input type="text" name="name" placeholder="Vārds Uzvārds" value="{{$client->first_name . (!empty($client->last_name) ? ' ' . $client->last_name : '')}}"/>
+                <input type="text" name="first_name" placeholder="Vārds" value="{{$client->first_name}}"/>
+                <input type="text" name="last_name" placeholder="Uzvārds" value="{{$client->last_name}}"/>
                 <input type="text" name="phone_number" placeholder="Telefona nr." value="{{$client->phone_number}}"/>
                 <input type="text" name="address" placeholder="Adrese" size="60" value="{{$client->address}}"/>
             </span>

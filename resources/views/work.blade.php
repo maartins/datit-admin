@@ -32,7 +32,8 @@
                     </br>
                     </br>
                 </span>
-                <input type="text" name="first_name" placeholder="Vārds Uzvārds"/>
+                <input type="text" name="first_name" placeholder="Vārds"/>
+                <input type="text" name="last_name" placeholder="Uzvārds"/>
                 <input type="text" name="phone_number" placeholder="Telefona nr."/>
                 <input type="text" name="address" placeholder="Adrese" size="60"/>
             </span>

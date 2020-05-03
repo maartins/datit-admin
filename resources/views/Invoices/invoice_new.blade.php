@@ -49,7 +49,8 @@
                     </br>
                     </br>
                 </span>
-                <input type="text" name="name" placeholder="Vārds Uzvārds" value="{{$invoice->client->first_name . ' ' . $invoice->client->last_name}}" readonly/>
+                <input type="text" name="first_name" placeholder="Vārds" value="{{$invoice->client->first_name}}" readonly/>
+                <input type="text" name="last_name" placeholder="Uzvārds" value="{{$invoice->client->last_name}}" readonly/>
                 <input type="text" name="phone_number" placeholder="Telefona nr." value="{{$invoice->client->phone_number}}" readonly/>
                 <input size="60" type="text" name="address" placeholder="Adrese" value="{{$invoice->client->address}}" readonly/>
             </span>
@@ -85,7 +86,12 @@
             <div class="device_work_list">
                 <span>
                     <p>Ierīce:</p>
-                    <input type="text" name="device_types[]" placeholder="Tips" value="{{$device->type_name}}" readonly/>
+                    @foreach($device->types as $type)
+                        @if($device->selected == $type->id)
+                            <input type="text" name="device_type_names[]" placeholder="Tips" value="{{$type->name}}" readonly/>
+                            <input type="text" name="device_types[]" placeholder="Tips" value="{{$type->id}}" hidden/>
+                        @endif
+                    @endforeach
                     <input type="text" name="device_names[]" placeholder="Nosaukums" value="{{$device->name}}" readonly/>
                     <input type="text" name="device_additions[]" placeholder="Komplektācija" value="{{$device->additions}}" readonly/>
                 </span>

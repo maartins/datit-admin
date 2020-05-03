@@ -6,14 +6,16 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class InvoiceRequest extends FormRequest {
 
-    private $clien_rules = [
-        'name' => 'required',
+    private $client_rules = [
+        'first_name' => 'required',
+        'last_name' => 'required',
         'phone_number' => 'numeric',
         'address' => 'required'
     ];
 
     private $client_messages = [
-        'name.required' => 'Nav norādīts Vārds.',
+        'first_name.required' => 'Nav norādīts Vārds.',
+        'last_name.required' => 'Nav norādīts Uzvārds.',
         'phone_number.required' => 'Nav norādīts Telefona nummurs',
         'phone_number.numeric' => 'Telefona nummurs ir ievadīts kļūdaini.',
         'address.required' => 'Nav norādīta Adrese.'
@@ -48,8 +50,10 @@ class InvoiceRequest extends FormRequest {
     public function rules() {
         switch ($this->input('action')) {
             case 'new':
-                return $this->clien_rules;
+                //dd($this);
+                return $this->client_rules;
             case 'new_device':
+                //dd($this);
                 return $this->device_rules;
             case 'back':
                 return [];
