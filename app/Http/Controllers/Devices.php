@@ -15,7 +15,7 @@ class Devices extends Controller
         
         foreach ($devices as $device) {
             foreach ($types as $type) {
-                if ($type->id == $device->type) {
+                if ($type->id == $device->device_type_id) {
                     $device->type_name = $type->name;
                 }
             }
@@ -28,8 +28,8 @@ class Devices extends Controller
         $device->types = DeviceType::all();
         
         foreach ($device->types as $type) {
-            if ($type->id == $device->type) {
-                $device->selected = $device->type;
+            if ($type->id == $device->device_type_id) {
+                $device->selected = $device->device_type_id;
             }
         }
 
@@ -39,9 +39,6 @@ class Devices extends Controller
     public function update(DeviceRequest $request, Device $device) {
         switch ($request->input('action')) {
             case 'update':
-                $device->type = $request->type;
-                $device->name = $request->name;
-                $device->additions = $request->additions;
                 $device->save();
 
                 return redirect('/devices/edit/' . $device->id);

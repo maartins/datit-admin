@@ -51,7 +51,7 @@
                 <input size="60" type="text" name="name" placeholder="Nosaukums"/>
                 <input size="60" type="text" name="additions" placeholder="Komplektācija"/>
             </span>
-             <span>
+            <span>
                 <p>Problēmas apraksts:</p>
                 <input type="text" name="problem" placeholder="Problēma" size="80"/>
                 <input type="text" name="notes" placeholder="Piezīmes" size="60"/>

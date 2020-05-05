@@ -22,15 +22,19 @@ class InvoiceRequest extends FormRequest {
     ];
 
     private $device_rules = [
-        'device_type' => 'required',
+        'device_type_id' => 'required',
         'device_name' => 'required',
-        'device_addition' => 'required'
+        'device_addition' => 'required',
+        'device_problem' => 'required',
+        'device_note' => 'required'
     ];
 
     private $device_messages = [
-        'device_type.required' => 'Nav norādīts Tips.',
+        'device_type_id.required' => 'Nav norādīts Tips.',
         'device_name.required' => 'Nav norādīts Nosaukums.',
-        'device_addition.required' => 'Nav norādīta Komplektācija.'
+        'device_addition.required' => 'Nav norādīta Komplektācija.',
+        'device_problem.required' => 'Nav norādīta Problēma.',
+        'device_note.required' => 'Nav norādīta Piezīmes.'
     ];
 
     /**

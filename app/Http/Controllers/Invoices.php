@@ -76,16 +76,18 @@ class Invoices extends Controller {
                 $device = new Device();
                 $device->id = empty(Device::latest()->first()->id) ? 1 : Device::latest()->first()->id + 1;
                 $device->invoice_id = $invoice->id;
-                $device->type = $request->device_type;
+                $device->device_type_id = $request->device_type_id;
                 $device->name = $request->device_name;
                 $device->additions = $request->device_addition;
+                $device->problem = $request->device_problem;
+                $device->note = $request->device_note;
                 $device->services_aviable = Service::all();
 
                 $device->types = DeviceType::all();
         
                 foreach ($device->types as $type) {
-                    if ($type->id == $device->type) {
-                        $device->selected = $device->type;
+                    if ($type->id == $device->device_type_id) {
+                        $device->selected = $device->device_type_id;
                     }
                 }
 
@@ -157,7 +159,7 @@ class Invoices extends Controller {
         if (!empty($invoice->devices)) {
             foreach ($invoice->devices as $device) {
                 foreach ($types as $type) {
-                    if ($type->id == $device->type) {
+                    if ($type->id == $device->device_type_id) {
                         $device->type_name = $type->name;
                     }
                 }

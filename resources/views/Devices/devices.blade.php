@@ -29,6 +29,16 @@
                     @else
                         <td>Trūkst</td>
                     @endif
+                    @if(isset($device->problem))
+                        <td>{{$device->problem}}</td>
+                    @else
+                        <td>Trūkst</td>
+                    @endif
+                    @if(isset($device->note))
+                        <td>{{$device->note}}</td>
+                    @else
+                        <td>Trūkst</td>
+                    @endif
                     @if(isset($device->created_at))
                         <td>{{$device->created_at->format('d/m/Y')}}</td>
                     @else

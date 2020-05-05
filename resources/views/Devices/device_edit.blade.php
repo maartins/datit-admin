@@ -4,10 +4,11 @@
 
 @section('content')
         <form action="/devices/update/{{$device->id}}" method="post">
+            {{csrf_field()}}
             <div>
                 <span>
                     <p>Ierīces dati:</p>
-                    <select name="device_type">
+                    <select name="device_type_id">
                         @foreach($device->types as $type)
                             @if($device->selected == $type->id)
                                 <option value="{{$type->id}}" selected>{{$type->name}}</option>
@@ -18,7 +19,11 @@
                     </select>
                     <input size="60" type="text" name="name" placeholder="Nosaukums" value="{{$device->name}}"/>
                     <input size="60" type="text" name="additions" placeholder="Komplektācija" value="{{$device->additions}}"/>
-                    {{csrf_field()}}
+                </span>
+                <span>
+                    <p>Problēmas apraksts:</p>
+                    <input type="text" name="problem" placeholder="Problēma" size="80"/>
+                    <input type="text" name="notes" placeholder="Piezīmes" size="60"/>
                     @if(count($errors))
                         <div>
                             <ul>

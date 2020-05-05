@@ -27,6 +27,7 @@
     </script>
 
     <form action="../../invoices/new" method="post">
+        {{csrf_field()}}
         <div>
             <span class="radio-toolbar">
                 <p>Klients:</p>
@@ -59,14 +60,18 @@
         <div>
              <span>
                 <p>Ierīces dati:</p>
-                <select name="device_type">
+                <select name="device_type_id">
                     @foreach($invoice->device_types as $type)
                         <option value="{{$type->id}}">{{$type->name}}</option>
                     @endforeach
                 </select>
                 <input size="60" type="text" name="device_name" placeholder="Nosaukums"/>
                 <input size="60" type="text" name="device_addition" placeholder="Komplektācija"/>
-                {{csrf_field()}}
+            </span>
+            <span>
+                <p>Problēmas apraksts:</p>
+                <input type="text" name="device_problem" placeholder="Problēma" size="80"/>
+                <input type="text" name="device_note" placeholder="Piezīmes" size="60"/>
                 @if(count($errors))
                     <div>
                         <ul>
@@ -76,6 +81,30 @@
                         </ul>
                     </div>
                 @endif
+            </span>
+            <span class="device_work_list">
+                <span>
+                    <p>Paredzamie darbi:</p>
+                    <select>
+                        <option value="1">Dzelži</option>
+                        <option value="2">Programmatūra</option>
+                        <option value="3">Citi</option>
+                    </select>
+                </span>
+                <span>
+                    <table>
+                        <tr><td><input type="checkbox" name="s_services" value="1"></td><td>Programmatūra - Pārinstalēt</td><td><b>10.00</b></td></tr>
+                        <tr><td><input type="checkbox" name="s_services" value="2"></td><td>Programmatūra - Attārpot</td><td><b>10.00</b></td></tr>
+                        <tr><td><input type="checkbox" name="s_services" value="3"></td><td>Dzelži - pārlodēt</td><td><b>10.00</b></td></tr>
+                        <tr><td><input type="checkbox" name="s_services" value="3"></td><td>Dzelži - pārlodēt</td><td><b>10.00</b></td></tr>
+                        <tr><td><input type="checkbox" name="s_services" value="3"></td><td>Dzelži - pārlodēt</td><td><b>10.00</b></td></tr>
+                        <tr><td><input type="checkbox" name="s_services" value="4"></td><td>Dzelži - pielīmēt</td><td><b>10.00</b></td></tr>
+                        <tr><td><input type="checkbox" name="s_services" value="4"></td><td>Dzelži - pielīmēt</td><td><b>10.00</b></td></tr>
+                        <tr><td><input type="checkbox" name="s_services" value="4"></td><td>Dzelži - pielīmēt</td><td><b>10.00</b></td></tr>
+                    </table>
+                    <input type="text" name="new_service" placeholder="Apraksts" size="50"/>
+                    <button>+ Jauns darbs</button>
+                </span>
             </span>
             <span>
                 <button type="submit" name="action" value="new_device">+ Papildus iekārta</button>
@@ -89,11 +118,13 @@
                     @foreach($device->types as $type)
                         @if($device->selected == $type->id)
                             <input type="text" name="device_type_names[]" placeholder="Tips" value="{{$type->name}}" readonly/>
-                            <input type="text" name="device_types[]" placeholder="Tips" value="{{$type->id}}" hidden/>
+                            <input type="text" name="device_type_ids[]" placeholder="Tips" value="{{$type->id}}" hidden/>
                         @endif
                     @endforeach
                     <input type="text" name="device_names[]" placeholder="Nosaukums" value="{{$device->name}}" readonly/>
                     <input type="text" name="device_additions[]" placeholder="Komplektācija" value="{{$device->additions}}" readonly/>
+                    <input type="text" name="device_problems[]" placeholder="Problēma" value="{{$device->problem}}" readonly/>
+                    <input type="text" name="device_notes[]" placeholder="Piezīme" value="{{$device->notes}}" readonly/>
                 </span>
                 <p>Veicamie darbi:</p>
                 <table>

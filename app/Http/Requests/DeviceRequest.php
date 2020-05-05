@@ -6,15 +6,19 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class DeviceRequest extends FormRequest {
     private $rules = [
-        'type' => 'required',
+        'device_type_id' => 'required',
         'name' => 'required',
-        'additions' => 'required'
+        'additions' => 'required',
+        'problem' => 'required',
+        'note' => 'required'
     ];
 
     private $messages = [
-        'type.required' => 'Nav norādīts Tips.',
+        'device_type_id.required' => 'Nav norādīts Tips.',
         'name.required' => 'Nav norādīts Nosaukums.',
-        'additions.required' => 'Nav norādīta Komplektācija.'
+        'additions.required' => 'Nav norādīta Komplektācija.',
+        'problem.required' => 'Nav norādīta Komplektācija.',
+        'note.required' => 'Nav norādīta Komplektācija.'
     ];
 
     /**
