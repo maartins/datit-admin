@@ -3,39 +3,9 @@
 @section('title', 'Klienti')
 
 @section('content')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#company").hide();
-        });
-
-        function show(value){
-            if (value == "person") {
-                $("#company").hide();
-            } else {
-                $("#company").show();
-            }
-        }
-    </script>
-
     <div>
         <form action="/clients/new" method="post">
-            <span class="radio-toolbar">
-                <p>Jauns Klients:</p>
-                <input type="radio" id="company_radio" name="client_type" value="company" onchange="show(this.value)"/><label for="company_radio">Juridiskais k.</label>
-                <input type="radio" id="person_radio" name="client_type" value="person" onchange="show(this.value)" checked/><label for="person_radio">Privātais k.</label>
-            </span>
-            <span>
-                <p>Klienta dati:</p>
-                <span id="company">
-                    <input type="text" name="company_name" placeholder="Uzņēmums"/>
-                    </br>
-                    </br>
-                </span>
-                <input type="text" name="first_name" placeholder="Vārds"/>
-                <input type="text" name="last_name" placeholder="Uzvārds"/>
-                <input type="text" name="phone_number" placeholder="Telefona nr."/>
-                <input type="text" name="address" placeholder="Adrese" size="60"/>
-            </span>
+            @include('Clients.client_form')
             {{csrf_field()}}
             <button type="submit">Pievienot</button>
              @if(count($errors))

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class InvoiceRequest extends FormRequest {
 
-    private $client_rules = [
+    private $rules = [
         'first_name' => 'required',
         'last_name' => 'required',
         'phone_number' => 'numeric',
@@ -19,7 +19,7 @@ class InvoiceRequest extends FormRequest {
         'services' => 'required'
     ];
 
-    private $client_messages = [
+    private $messages = [
         'first_name.required' => 'Nav norādīts Vārds.',
         'last_name.required' => 'Nav norādīts Uzvārds.',
         'phone_number.required' => 'Nav norādīts Telefona nummurs',
@@ -53,7 +53,7 @@ class InvoiceRequest extends FormRequest {
             case 'back':
                 return [];
             default:
-                return $this->client_rules;
+                return $this->rules;
         }
     }
 
@@ -67,7 +67,7 @@ class InvoiceRequest extends FormRequest {
             case 'back':
                 return [];
             default:
-                return $this->client_messages;
+                return $this->messages;
         }
     }
 }

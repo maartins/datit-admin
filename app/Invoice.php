@@ -12,7 +12,9 @@ class Invoice extends Model {
 
     public function setupInvoice() {
         $this->invoice_number = str_pad($this->id, 6, '0', STR_PAD_LEFT);
-        $this->client = Client::findOrFail($this->client_id);
+        if (!empty($this->client_id)) {
+            $this->client = Client::findOrFail($this->client_id);
+        }
         $this->device_types = DeviceType::all();
         $this->service_categories = ServiceCategory::all();
         $this->services = Service::all();
@@ -45,8 +47,8 @@ class Invoice extends Model {
                 }
             }
         }
-
-        $this->total_sum = number_format($this->total_sum, 2);
+        
+        $this->total_sum = number_format($this->total_sum, 2, '.', '');
 
         return null;
     }

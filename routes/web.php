@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/work', 'Work@index');
+Route::post('/work/new', 'Work@new');
 
 Route::get('/clients', 'Clients@index');
 Route::post('/clients/new', 'Clients@new');
