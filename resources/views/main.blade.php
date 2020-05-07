@@ -19,9 +19,9 @@
         <ul>
             <li><a href="/work">Jauns pasūtījums</a></li>
             <li>|</li>
+            <li><a href="/invoices">Rēķini</a></li>
             <li><a href="/clients">Klienti</a></li>
             <li><a href="/devices">Ierīces</a></li>
-            <li><a href="/invoices">Rēķini</a></li>
             <li><a href="/services">Pakalpojumi</a></li>
         </ul>
     </div>

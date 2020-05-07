@@ -22,8 +22,8 @@
                 </span>
                 <span>
                     <p>Problēmas apraksts:</p>
-                    <input type="text" name="problem" placeholder="Problēma" size="80"/>
-                    <input type="text" name="notes" placeholder="Piezīmes" size="60"/>
+                    <input type="text" name="problem" placeholder="Problēma" size="80" value="{{$device->problem}}"/>
+                    <input type="text" name="note" placeholder="Piezīmes" size="60" value="{{$device->note}}"/>
                     @if(count($errors))
                         <div>
                             <ul>

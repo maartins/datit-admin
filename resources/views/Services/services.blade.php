@@ -6,6 +6,11 @@
     <div>
         <p>Jauns pakalpojums:</p>
         <form action="/services/new" method="post">
+            <select name="service_category_id">
+                @foreach($services->service_categories as $categories)
+                    <option value="{{$categories->id}}">{{$categories->name}}</option>
+                @endforeach
+            </select>
             <input size="80" type="text" name="description" placeholder="Apraksts"/>
             <input type="text" name="price" placeholder="Cena"/>
             {{csrf_field()}}
@@ -25,6 +30,7 @@
     <div class="table">
         <table>
             <tr>
+                <th>@sortablelink('service_category_name', 'Kategorija')</th>
                 <th>@sortablelink('description', 'Apraksts')</th>
                 <th>@sortablelink('price', 'Cena')</th>
                 <th>@sortablelink('created_at', 'Izveidots')</th>
@@ -32,6 +38,11 @@
             </tr>
             @foreach($services as $service)
                 <tr>
+                    @if(isset($service->service_category_name))
+                        <td>{{$service->service_category_name}}</td>
+                    @else
+                        <td>Trūkst</td>
+                    @endif
                     @if(isset($service->description))
                         <td>{{$service->description}}</td>
                     @else

@@ -17,8 +17,8 @@ class DeviceRequest extends FormRequest {
         'device_type_id.required' => 'Nav norādīts Tips.',
         'name.required' => 'Nav norādīts Nosaukums.',
         'additions.required' => 'Nav norādīta Komplektācija.',
-        'problem.required' => 'Nav norādīta Komplektācija.',
-        'note.required' => 'Nav norādīta Komplektācija.'
+        'problem.required' => 'Nav norādīta Problēma.',
+        'note.required' => 'Nav norādītas Piezīmes.'
     ];
 
     /**
@@ -37,10 +37,10 @@ class DeviceRequest extends FormRequest {
      */
     public function rules() {
         switch ($this->input('action')) {
-            case 'update':
-                return $this->rules;
             case 'back':
                 return [];
+            default:
+                return $this->rules;
         }
     }
 
@@ -51,10 +51,10 @@ class DeviceRequest extends FormRequest {
      */
     public function messages() {
         switch ($this->input('action')) {
-            case 'update':
-                return $this->messages;
             case 'back':
                 return [];
+            default:
+                return $this->messages;
         }
     }
 }

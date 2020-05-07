@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Klienti/' . substr($invoice->client->first_name . ' ' . $invoice->client->last_name, 0, 50) . '/Jauns rēķins/' . $invoice->invoice_number)
+@section('title', 'Klienti/' . substr($invoice->client->first_name . ' ' . $invoice->client->last_name, 0, 50) . '/Jauns rēķins')
 
 @section('content')
     @if($invoice->client->client_type == 'person')
@@ -17,6 +17,15 @@
         </script>
     @endif
     <script type="text/javascript">
+        $(document).ready(function() {
+            var selected_service_category = $("#service_category_id").children("option:selected").val();
+
+            var rows = $('#services_table tr').hide();
+            rows.filter(function () {
+                return $.trim($(this).find('td').attr('id')) == selected_service_category
+            }).show();
+        });
+
         function show(value){
             if (value == "person") {
                 $("#company").hide();
@@ -24,7 +33,17 @@
                 $("#company").show();
             }
         }
+
+        function selected(value) {
+            $('#services_table tr td input').prop("checked", false);
+
+            var rows = $('#services_table tr').hide();
+            rows.filter(function () {
+                return $.trim($(this).find('td').attr('id')) == value
+            }).show();
+        }
     </script>
+    
 
     <form action="../../invoices/new" method="post">
         {{csrf_field()}}
@@ -65,75 +84,44 @@
                         <option value="{{$type->id}}">{{$type->name}}</option>
                     @endforeach
                 </select>
-                <input size="60" type="text" name="device_name" placeholder="Nosaukums"/>
-                <input size="60" type="text" name="device_addition" placeholder="Komplektācija"/>
+                <input size="60" type="text" name="name" placeholder="Nosaukums"/>
+                <input size="60" type="text" name="additions" placeholder="Komplektācija"/>
             </span>
             <span>
                 <p>Problēmas apraksts:</p>
-                <input type="text" name="device_problem" placeholder="Problēma" size="80"/>
-                <input type="text" name="device_note" placeholder="Piezīmes" size="60"/>
-                @if(count($errors))
-                    <div>
-                        <ul>
-                            @foreach($errors->all() as $error)
-                                <li>{{$error}}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+                <input type="text" name="problem" placeholder="Problēma" size="80"/>
+                <input type="text" name="note" placeholder="Piezīmes" size="60"/>
             </span>
             <span class="device_work_list">
                 <span>
                     <p>Paredzamie darbi:</p>
-                    <select>
-                        <option value="1">Dzelži</option>
-                        <option value="2">Programmatūra</option>
-                        <option value="3">Citi</option>
+                    <select id="service_category_id" name="service_category_id" onchange="selected(this.value)">
+                        @foreach($invoice->service_categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
                     </select>
                 </span>
                 <span>
-                    <table>
-                        <tr><td><input type="checkbox" name="s_services" value="1"></td><td>Programmatūra - Pārinstalēt</td><td><b>10.00</b></td></tr>
-                        <tr><td><input type="checkbox" name="s_services" value="2"></td><td>Programmatūra - Attārpot</td><td><b>10.00</b></td></tr>
-                        <tr><td><input type="checkbox" name="s_services" value="3"></td><td>Dzelži - pārlodēt</td><td><b>10.00</b></td></tr>
-                        <tr><td><input type="checkbox" name="s_services" value="3"></td><td>Dzelži - pārlodēt</td><td><b>10.00</b></td></tr>
-                        <tr><td><input type="checkbox" name="s_services" value="3"></td><td>Dzelži - pārlodēt</td><td><b>10.00</b></td></tr>
-                        <tr><td><input type="checkbox" name="s_services" value="4"></td><td>Dzelži - pielīmēt</td><td><b>10.00</b></td></tr>
-                        <tr><td><input type="checkbox" name="s_services" value="4"></td><td>Dzelži - pielīmēt</td><td><b>10.00</b></td></tr>
-                        <tr><td><input type="checkbox" name="s_services" value="4"></td><td>Dzelži - pielīmēt</td><td><b>10.00</b></td></tr>
+                    <table id="services_table">
+                        @foreach($invoice->services as $service)
+                            <tr><td id="{{$service->service_category_id}}"><input type="checkbox" name="services[]" value="{{$service->id}}"></td><td>{{$service->description}}</td><td><b>{{$service->price}}</b></td></tr>
+                        @endforeach
                     </table>
-                    <input type="text" name="new_service" placeholder="Apraksts" size="50"/>
-                    <button>+ Jauns darbs</button>
+                    <input type="text" name="new_service" placeholder="Papildus darbs" size="50"/>
+                    <button>Pievienot</button>
                 </span>
             </span>
-            <span>
-                <button type="submit" name="action" value="new_device">+ Papildus iekārta</button>
-            </span>
-        </div>
 
-        @foreach($invoice->devices as $device)
-            <div class="device_work_list">
-                <span>
-                    <p>Ierīce:</p>
-                    @foreach($device->types as $type)
-                        @if($device->selected == $type->id)
-                            <input type="text" name="device_type_names[]" placeholder="Tips" value="{{$type->name}}" readonly/>
-                            <input type="text" name="device_type_ids[]" placeholder="Tips" value="{{$type->id}}" hidden/>
-                        @endif
-                    @endforeach
-                    <input type="text" name="device_names[]" placeholder="Nosaukums" value="{{$device->name}}" readonly/>
-                    <input type="text" name="device_additions[]" placeholder="Komplektācija" value="{{$device->additions}}" readonly/>
-                    <input type="text" name="device_problems[]" placeholder="Problēma" value="{{$device->problem}}" readonly/>
-                    <input type="text" name="device_notes[]" placeholder="Piezīme" value="{{$device->notes}}" readonly/>
-                </span>
-                <p>Veicamie darbi:</p>
-                <table>
-                    @foreach($device->services_aviable as $service)
-                        <tr><td><input type="checkbox" name="{{$device->name}}_services[]" value="{{$service->id}}"></td><td>{{$service->description}}</td><td><b>{{$service->price}}</b></td></tr>
-                    @endforeach
-                </table>
-            </div>
-        @endforeach
+            @if(count($errors))
+                <div>
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
 
         <div>
             <span>
@@ -142,7 +130,6 @@
             </span>
         </div>
 
-        <input name="invoice_id"  value="{{$invoice->id}}" type="hidden">
         <input name="client_id"  value="{{$invoice->client_id}}" type="hidden">
     </form>
 @endsection

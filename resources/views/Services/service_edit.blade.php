@@ -5,7 +5,17 @@
 @section('content')
         <form action="/services/update/{{$service->id}}" method="post">
             <div>
+                <span>
                 <p>Pakalopjuma dati:</p>
+                <select name="service_category_id">
+                    @foreach($service->service_categories as $type)
+                        @if($service->service_category_id == $type->id)
+                            <option value="{{$type->id}}" selected>{{$type->name}}</option>
+                        @else
+                            <option value="{{$type->id}}">{{$type->name}}</option>
+                        @endif
+                    @endforeach
+                </select>
                 <input size="80" type="text" name="description" placeholder="Vārds" value="{{$service->description}}"/>
                 <input type="text" name="price" placeholder="Telefona nr." value="{{$service->price}}"/>
                 {{csrf_field()}}
@@ -18,10 +28,13 @@
                         </ul>
                     </div>
                 @endif
+                </span>
             </div>
             <div>
-                <button class="ok-button" type="submit" name="action" value="update">Atjaunot</button>
-                <button type="submit" name="action" value="back">Atpakaļ</button>
+                <span>
+                    <button class="ok-button" type="submit" name="action" value="update">Atjaunot</button>
+                    <button type="submit" name="action" value="back">Atpakaļ</button>
+                </span>
             </div>
         </form>
 @endsection

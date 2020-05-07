@@ -32,9 +32,9 @@ Route::get('/devices/delete/{device}', 'Devices@delete');
 
 Route::get('/services', 'Services@index');
 Route::post('/services/new', 'Services@new');
-Route::get('/services/edit/{id}', 'Services@edit');
-Route::post('/services/update/{id}', 'Services@update');
-Route::get('/services/delete/{id}', 'Services@delete');
+Route::get('/services/edit/{service}', 'Services@edit');
+Route::post('/services/update/{service}', 'Services@update');
+Route::get('/services/delete/{service}', 'Services@delete');
 
 Route::get('/invoices', 'Invoices@index');
 Route::get('/invoices/add/{client_id}', 'Invoices@add');

@@ -80,10 +80,6 @@
                     <button>+ Jauns darbs</button>
                 </span>
             </span>
-
-            <span>
-                <button>+ Papildus iekārta</button>
-            </span>
             @if(count($errors))
                 <div>
                     <ul>

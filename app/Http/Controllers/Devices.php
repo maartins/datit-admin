@@ -39,10 +39,8 @@ class Devices extends Controller
     public function update(DeviceRequest $request, Device $device) {
         switch ($request->input('action')) {
             case 'update':
-                $device->save();
-
+                $device->update($request->all());
                 return redirect('/devices/edit/' . $device->id);
-    
             case 'back':
                 return redirect('/devices');
         }

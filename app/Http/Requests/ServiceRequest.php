@@ -4,20 +4,17 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClientRequest extends FormRequest {
+class ServiceRequest extends FormRequest {
     private $rules = [
-        'first_name' => 'required',
-        'last_name' => 'required',
-        'phone_number' => 'numeric',
-        'address' => 'required'
+        'service_category_id' => 'required',
+        'description' => 'required',
+        'price' => 'required|numeric'
     ];
-
     private $messages = [
-        'first_name.required' => 'Nav norādīts Vārds.',
-        'last_name.required' => 'Nav norādīts Uzvārds.',
-        'phone_number.required' => 'Nav norādīts Telefona nummurs',
-        'phone_number.numeric' => 'Telefona nummurs ir ievadīts kļūdaini.',
-        'address.required' => 'Nav norādīta Adrese.'
+        'service_category_id.required' => 'Nav norādīta Kategorija.',
+        'description.required' => 'Nav norādīts Apraksts.',
+        'price.required' => 'Nav norādīta Cena.',
+        'price.numeric' => 'Cena nav pareizi norādīta.'
     ];
 
     /**
@@ -35,10 +32,6 @@ class ClientRequest extends FormRequest {
      * @return array
      */
     public function rules() {
-        if ($this->client_type == 'company') {
-            $this->rules['company_name'] = 'required';
-        }
-
         switch ($this->input('action')) {
             case 'back':
                 return [];
@@ -53,10 +46,6 @@ class ClientRequest extends FormRequest {
      * @return array
      */
     public function messages() {
-        if ($this->client_type == 'company') {
-            $this->messages['company_name.required'] = 'Nav norādīts Uzņēmuma nosaukums.';
-        }
-        
         switch ($this->input('action')) {
             case 'back':
                 return [];

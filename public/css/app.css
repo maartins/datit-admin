@@ -7,6 +7,10 @@ html {
     line-height: 1;
 }
 
+h1 {
+    margin: 0.5ex;
+}
+
 a {
     color: #3e7fa5;
     text-decoration: none;
@@ -149,8 +153,9 @@ button:hover {
 
 button {
     margin-left: 1ex;
+    margin-bottom: 0.1ex;
     border: none;
-    padding: 1ex;
+    padding: 0.7ex;
     font-size: 11pt;
     cursor: pointer;
     background-color: #b2c4d3;

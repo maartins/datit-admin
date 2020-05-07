@@ -10,7 +10,13 @@ class InvoiceRequest extends FormRequest {
         'first_name' => 'required',
         'last_name' => 'required',
         'phone_number' => 'numeric',
-        'address' => 'required'
+        'address' => 'required',
+        'device_type_id' => 'required',
+        'name' => 'required',
+        'additions' => 'required',
+        'problem' => 'required',
+        'note' => 'required',
+        'services' => 'required'
     ];
 
     private $client_messages = [
@@ -18,23 +24,13 @@ class InvoiceRequest extends FormRequest {
         'last_name.required' => 'Nav norādīts Uzvārds.',
         'phone_number.required' => 'Nav norādīts Telefona nummurs',
         'phone_number.numeric' => 'Telefona nummurs ir ievadīts kļūdaini.',
-        'address.required' => 'Nav norādīta Adrese.'
-    ];
-
-    private $device_rules = [
-        'device_type_id' => 'required',
-        'device_name' => 'required',
-        'device_addition' => 'required',
-        'device_problem' => 'required',
-        'device_note' => 'required'
-    ];
-
-    private $device_messages = [
+        'address.required' => 'Nav norādīta Adrese.',
         'device_type_id.required' => 'Nav norādīts Tips.',
-        'device_name.required' => 'Nav norādīts Nosaukums.',
-        'device_addition.required' => 'Nav norādīta Komplektācija.',
-        'device_problem.required' => 'Nav norādīta Problēma.',
-        'device_note.required' => 'Nav norādīta Piezīmes.'
+        'name.required' => 'Nav norādīts Nosaukums.',
+        'additions.required' => 'Nav norādīta Komplektācija.',
+        'problem.required' => 'Nav norādīta Porblēma.',
+        'note.required' => 'Nav norādītas Piezīmes.',
+        'services.required' => 'Nav norādīti Darbi.'
     ];
 
     /**
@@ -52,15 +48,12 @@ class InvoiceRequest extends FormRequest {
      * @return array
      */
     public function rules() {
+        //dd($this);
         switch ($this->input('action')) {
-            case 'new':
-                //dd($this);
-                return $this->client_rules;
-            case 'new_device':
-                //dd($this);
-                return $this->device_rules;
             case 'back':
                 return [];
+            default:
+                return $this->client_rules;
         }
     }
 
@@ -71,12 +64,10 @@ class InvoiceRequest extends FormRequest {
      */
     public function messages() {
         switch ($this->input('action')) {
-            case 'new':
-                return $this->client_messages;
-            case 'new_device':
-                return $this->device_messages;
             case 'back':
                 return [];
+            default:
+                return $this->client_messages;
         }
     }
 }

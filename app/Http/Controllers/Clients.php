@@ -24,10 +24,8 @@ class Clients extends Controller {
     }
 
     public function new(ClientRequest $request) {
-        $client = new Client();
-        $client->createFromArray($request);
+        $client = new Client($request->all());
         $client->save();
-
         return back();
     }
 
@@ -38,11 +36,8 @@ class Clients extends Controller {
     public function update(ClientRequest $request, Client $client) {
         switch ($request->input('action')) {
             case 'update':
-                $client->createFromArray($request);
-                $client->save();
-                
+                $client->update($request->all());
                 return redirect('/clients/edit/' . $client->id);
-    
             case 'back':
                 return redirect('/clients');
         }
