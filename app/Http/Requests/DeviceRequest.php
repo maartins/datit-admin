@@ -8,17 +8,13 @@ class DeviceRequest extends FormRequest {
     private $rules = [
         'device_type_id' => 'required',
         'name' => 'required',
-        'additions' => 'required',
-        'problem' => 'required',
-        'note' => 'required'
+        'problem' => 'required'
     ];
 
     private $messages = [
         'device_type_id.required' => 'Nav norādīts Tips.',
         'name.required' => 'Nav norādīts Nosaukums.',
-        'additions.required' => 'Nav norādīta Komplektācija.',
-        'problem.required' => 'Nav norādīta Problēma.',
-        'note.required' => 'Nav norādītas Piezīmes.'
+        'problem.required' => 'Nav norādīta Problēma.'
     ];
 
     /**

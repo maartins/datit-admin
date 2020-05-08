@@ -7,17 +7,13 @@ use Illuminate\Foundation\Http\FormRequest;
 class ClientRequest extends FormRequest {
     private $rules = [
         'first_name' => 'required',
-        'last_name' => 'required',
-        'phone_number' => 'numeric',
-        'address' => 'required'
+        'phone_number' => 'numeric'
     ];
 
     private $messages = [
         'first_name.required' => 'Nav norādīts Vārds.',
-        'last_name.required' => 'Nav norādīts Uzvārds.',
         'phone_number.required' => 'Nav norādīts Telefona nummurs',
-        'phone_number.numeric' => 'Telefona nummurs ir ievadīts kļūdaini.',
-        'address.required' => 'Nav norādīta Adrese.'
+        'phone_number.numeric' => 'Telefona nummurs ir ievadīts kļūdaini.'
     ];
 
     /**

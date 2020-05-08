@@ -46,18 +46,18 @@
         <p>Klienta dati:</p>
         <span id="company">
             @if($invoice->client->client_type == 'person')
-                <input type="text" name="company_name" placeholder="Uzņēmums" readonly/>
-                <input type="text" name="compnay_reg" placeholder="Reģistrācijas Nr." readonly/>
+                <input type="text" name="company_name" placeholder="Uzņēmums*" readonly/>
+                <input type="text" name="compnay_reg" placeholder="Reģistrācijas Nr.*" readonly/>
             @else
-                <input type="text" name="company_name" placeholder="Uzņēmums" value="{{$invoice->client->company_name}}" readonly/>
-                <input type="text" name="compnay_reg" placeholder="Reģistrācijas Nr." value="{{$invoice->client->compnay_reg}}" readonly/>
+                <input type="text" name="company_name" placeholder="Uzņēmums*" value="{{$invoice->client->company_name}}" readonly/>
+                <input type="text" name="compnay_reg" placeholder="Reģistrācijas Nr.*" value="{{$invoice->client->compnay_reg}}" readonly/>
             @endif
             </br>
             </br>
         </span>
-        <input type="text" name="first_name" placeholder="Vārds" value="{{$invoice->client->first_name}}" readonly/>
+        <input type="text" name="first_name" placeholder="Vārds*" value="{{$invoice->client->first_name}}" readonly/>
         <input type="text" name="last_name" placeholder="Uzvārds" value="{{$invoice->client->last_name}}" readonly/>
-        <input type="text" name="phone_number" placeholder="Telefona nr." value="{{$invoice->client->phone_number}}" readonly/>
+        <input type="text" name="phone_number" placeholder="Telefona nr.*" value="{{$invoice->client->phone_number}}" readonly/>
         <input size="60" type="text" name="address" placeholder="Adrese" value="{{$invoice->client->address}}" readonly/>
     </span>
 @else
@@ -69,14 +69,14 @@
     <span>
         <p>Klienta dati:</p>
         <span id="company">
-            <input type="text" name="company_name" placeholder="Uzņēmums"/>
-            <input type="text" name="compnay_reg" placeholder="Reģistrācijas Nr."/>
+            <input type="text" name="company_name" placeholder="Uzņēmums*"/>
+            <input type="text" name="compnay_reg" placeholder="Reģistrācijas Nr.*"/>
             </br>
             </br>
         </span>
-        <input type="text" name="first_name" placeholder="Vārds"/>
+        <input type="text" name="first_name" placeholder="Vārds*"/>
         <input type="text" name="last_name" placeholder="Uzvārds"/>
-        <input type="text" name="phone_number" placeholder="Telefona nr."/>
+        <input type="text" name="phone_number" placeholder="Telefona nr.*"/>
         <input size="60" type="text" name="address" placeholder="Adrese"/>
     </span>
 @endif

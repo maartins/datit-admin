@@ -19,7 +19,7 @@ class CreateClientsTable extends Migration
             $table->string('first_name');
             $table->string('last_name')->nullable();
             $table->string('phone_number');
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('client_type')->default('person');
             $table->string('company_name')->nullable()->default('');
         });

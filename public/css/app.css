@@ -36,10 +36,6 @@ div {
     box-shadow: 0px 1px 15px 7px rgba(59, 40, 40, 0.287);
 }
 
-div span {
-    flex-direction: row;
-}
-
 div ul {
     padding: 0;
     margin: 0;

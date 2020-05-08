@@ -8,29 +8,25 @@ class InvoiceRequest extends FormRequest {
 
     private $rules = [
         'first_name' => 'required',
-        'last_name' => 'required',
         'phone_number' => 'numeric',
-        'address' => 'required',
         'device_type_id' => 'required',
         'name' => 'required',
-        'additions' => 'required',
         'problem' => 'required',
-        'note' => 'required',
-        'services' => 'required'
+        'services' => 'required_without:new_service_description,new_service_price',
+        'new_service_description.*' => 'required_without:services',
+        'new_service_price.*' => 'required_without:services'
     ];
 
     private $messages = [
         'first_name.required' => 'Nav norādīts Vārds.',
-        'last_name.required' => 'Nav norādīts Uzvārds.',
         'phone_number.required' => 'Nav norādīts Telefona nummurs',
         'phone_number.numeric' => 'Telefona nummurs ir ievadīts kļūdaini.',
-        'address.required' => 'Nav norādīta Adrese.',
         'device_type_id.required' => 'Nav norādīts Tips.',
         'name.required' => 'Nav norādīts Nosaukums.',
-        'additions.required' => 'Nav norādīta Komplektācija.',
         'problem.required' => 'Nav norādīta Porblēma.',
-        'note.required' => 'Nav norādītas Piezīmes.',
-        'services.required' => 'Nav norādīti Darbi.'
+        'services.required_without' => 'Nav norādīti Darbi.',
+        'new_service_description.*.required_without' => 'Nav norādīti Darbi.',
+        'new_service_price.*.required_without' => 'Nav norādīti Darbi.'
     ];
 
     /**

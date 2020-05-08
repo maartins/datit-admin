@@ -7,6 +7,7 @@ use App\Device;
 use App\DeviceService;
 use App\Http\Requests\InvoiceRequest;
 use App\Invoice;
+use App\Service;
 use PDF;
 
 class Invoices extends Controller {
@@ -43,6 +44,22 @@ class Invoices extends Controller {
                         $device_service = new DeviceService();
                         $device_service->device_id = $device->id;
                         $device_service->service_id = $service_id;
+                        $device_service->save();
+                    }
+                }
+
+                if (!empty($request->new_service_description) && !empty($request->new_service_price)) {
+                    $new_services = array_combine($request->new_service_description, $request->new_service_price);
+                    foreach ($new_services as $description => $price) {
+                        $service = new Service();
+                        $service->service_category_id = 1;
+                        $service->description = $description;
+                        $service->price = $price;
+                        $service->save();
+
+                        $device_service = new DeviceService();
+                        $device_service->device_id = $device->id;
+                        $device_service->service_id = $service->id;
                         $device_service->save();
                     }
                 }

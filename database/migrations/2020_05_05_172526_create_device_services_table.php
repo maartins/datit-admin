@@ -15,7 +15,7 @@ class CreateDeviceServicesTable extends Migration {
             $table->id();
             $table->timestamps();
             $table->foreignId('device_id')->references('id')->on('devices');
-            $table->foreignId('service_id')->references('id')->on('services');
+            $table->foreignId('service_id')->references('id')->on('services')->nullable()->onDelete('cascade');
         });
     }
 

@@ -17,9 +17,9 @@ class CreateDevicesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->string('additions');
+            $table->string('additions')->nullable();
             $table->string('problem');
-            $table->string('note');
+            $table->string('note')->nullable();
             $table->foreignId('device_type_id')->references('id')->on('device_types');
             $table->foreignId('invoice_id')->references('id')->on('invoices');
         });
