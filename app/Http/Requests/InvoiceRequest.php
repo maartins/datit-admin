@@ -3,18 +3,17 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Factory as ValidationFactory;
 
 class InvoiceRequest extends FormRequest {
 
     private $rules = [
         'first_name' => 'required',
-        'phone_number' => 'numeric',
+        'phone_number' => 'required|numeric',
         'device_type_id' => 'required',
         'name' => 'required',
         'problem' => 'required',
-        'services' => 'required_without:new_service_description,new_service_price',
-        'new_service_description.*' => 'required_without:services',
-        'new_service_price.*' => 'required_without:services'
+        'services' => 'required_without_all'
     ];
 
     private $messages = [
@@ -23,11 +22,14 @@ class InvoiceRequest extends FormRequest {
         'phone_number.numeric' => 'Telefona nummurs ir ievadīts kļūdaini.',
         'device_type_id.required' => 'Nav norādīts Tips.',
         'name.required' => 'Nav norādīts Nosaukums.',
-        'problem.required' => 'Nav norādīta Porblēma.',
-        'services.required_without' => 'Nav norādīti Darbi.',
-        'new_service_description.*.required_without' => 'Nav norādīti Darbi.',
-        'new_service_price.*.required_without' => 'Nav norādīti Darbi.'
+        'problem.required' => 'Nav norādīta Porblēma.'
     ];
+
+    public function __construct(ValidationFactory $validationFactory) {
+        $validationFactory->extend('service_test', function ($attribute, $value, $parameters, $validator) {
+            return in_array(null, $validator->getData()['new_service_description']) && $value != null;
+        }, 'Ņebija visi mājās.');
+    }
 
     /**
      * Determine if the user is authorized to make this request.

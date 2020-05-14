@@ -40,7 +40,7 @@ class Work extends Controller {
                     }
                 }
 
-                if (!empty($request->new_service_description) && !empty($request->new_service_price)) {
+                if (array_filter($request->new_service_description) && array_filter($request->new_service_price)) {
                     $new_services = array_combine($request->new_service_description, $request->new_service_price);
                     foreach ($new_services as $description => $price) {
                         $service = new Service();
@@ -78,7 +78,7 @@ class Work extends Controller {
                     }
                 }
 
-                if (!empty($request->new_service_description) && !empty($request->new_service_price)) {
+                if (array_filter($request->new_service_description) && array_filter($request->new_service_price)) {
                     $new_services = array_combine($request->new_service_description, $request->new_service_price);
                     foreach ($new_services as $description => $price) {
                         $service = new Service();
