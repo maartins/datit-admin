@@ -21,22 +21,22 @@
                     @if(isset($invoice->invoice_number))
                         <td>{{$invoice->invoice_number}}</td>
                     @else
-                        <td>Trūkst</td>
+                        <td/>
                     @endif
                     @if(isset($invoice->client->first_name))
                         <td>{{$invoice->client->first_name}}</td>
                     @else
-                        <td>Trūkst</td>
+                        <td/>
                     @endif
                     @if(isset($invoice->client->last_name))
                         <td>{{$invoice->client->last_name}}</td>
                     @else
-                        <td>Trūkst</td>
+                        <td/>
                     @endif
                     @if(isset($invoice->client->phone_number))
                         <td>{{$invoice->client->phone_number}}</td>
                     @else
-                        <td>Trūkst</td>
+                        <td/>
                     @endif
                     @if(isset($invoice->client->address))
                         <td>{{$invoice->client->address}}</td>
@@ -60,12 +60,12 @@
                     @if(isset($invoice->total_sum))
                         <td>{{$invoice->total_sum}}</td>
                     @else
-                        <td>Trūkst</td>
+                        <td/>
                     @endif
                     @if(isset($invoice->created_at))
                         <td>{{$invoice->created_at->format('d/m/Y')}}</td>
                     @else
-                        <td>Trūkst</td>
+                        <td/>
                     @endif
                     <td><button onclick="window.location.href='invoices/view/{{$invoice->id}}';">Apskatīt</button></td>
                     <td><button class="bad-button" onclick="window.location.href='invoices/delete/{{$invoice->id}}';">Dzēst</button></td>

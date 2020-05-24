@@ -77,45 +77,35 @@
                 <th>@sortablelink('type', 'Tips')</th>
                 <th>@sortablelink('name', 'Nosaukums')</th>
                 <th>@sortablelink('additions', 'Komplektācija')</th>
-                <th>@sortablelink('created_at', 'Izveidots')</th>
-                <th>@sortablelink('updated_at', 'Atjaunots')</th>
+                <th>@sortablelink('problem', 'Problēmas')</th>
+                <th>@sortablelink('note', 'Piezīmes')</th>
             </tr>
             @foreach($invoice->devices as $device)
                 <tr>
                     @if(isset($device->type_name))
                         <td>{{$device->type_name}}</td>
                     @else
-                        <td>Trūkst</td>
+                        <td/>
                     @endif
                     @if(isset($device->name))
                         <td>{{$device->name}}</td>
                     @else
-                        <td>Trūkst</td>
+                        <td/>
                     @endif
                     @if(isset($device->additions))
                         <td>{{$device->additions}}</td>
                     @else
-                        <td>Trūkst</td>
+                        <td/>
                     @endif
                     @if(isset($device->problem))
                         <td>{{$device->problem}}</td>
                     @else
-                        <td>Trūkst</td>
+                        <td/>
                     @endif
                     @if(isset($device->note))
                         <td>{{$device->note}}</td>
                     @else
-                        <td>Trūkst</td>
-                    @endif
-                    @if(isset($device->created_at))
-                        <td>{{$device->created_at->format('d/m/Y')}}</td>
-                    @else
-                        <td>Trūkst</td>
-                    @endif
-                    @if(isset($device->updated_at))
-                        <td>{{$device->updated_at->format('d/m/Y')}}</td>
-                    @else
-                        <td>Trūkst</td>
+                        <td/>
                     @endif
                     <td><button onclick="window.location.href='../../devices/edit/{{$device->id}}';">Rediģēt ierīces datus</button></td>
                 </tr>
@@ -129,8 +119,6 @@
                 <th>@sortablelink('service_category_name', 'Kategorija')</th>
                 <th>@sortablelink('description', 'Apraksts')</th>
                 <th>@sortablelink('price', 'Cena')</th>
-                <th>@sortablelink('created_at', 'Izveidots')</th>
-                <th>@sortablelink('updated_at', 'Atjaunots')</th>
             </tr>
             @foreach($invoice->devices as $device)
                 @foreach($device->services as $service)
@@ -138,27 +126,17 @@
                         @if(isset($service->service_category_name))
                             <td>{{$service->service_category_name}}</td>
                         @else
-                            <td>Trūkst</td>
+                            <td/>
                         @endif
                         @if(isset($service->description))
                             <td>{{$service->description}}</td>
                         @else
-                            <td>Trūkst</td>
+                            <td/>
                         @endif
                         @if(isset($service->price))
                             <td>{{$service->price}}</td>
                         @else
-                            <td>Trūkst</td>
-                        @endif
-                        @if(isset($service->created_at))
-                            <td>{{$service->created_at->format('d/m/Y')}}</td>
-                        @else
-                            <td>Trūkst</td>
-                        @endif
-                        @if(isset($service->updated_at))
-                            <td>{{$service->updated_at->format('d/m/Y')}}</td>
-                        @else
-                            <td>Trūkst</td>
+                            <td/>
                         @endif
                         <td><button onclick="window.location.href='../../services/edit/{{$service->id}}';">Rediģēt</button></td>
                     </tr>

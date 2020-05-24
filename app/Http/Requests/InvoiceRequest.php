@@ -9,17 +9,17 @@ class InvoiceRequest extends FormRequest {
 
     private $rules = [
         'first_name' => 'required',
-        'phone_number' => 'required|numeric',
+        'phone_number' => 'required|digits:8|numeric',
         'device_type_id' => 'required',
         'name' => 'required',
-        'problem' => 'required',
-        'services' => 'required_without_all'
+        'problem' => 'required'
     ];
 
     private $messages = [
         'first_name.required' => 'Nav norādīts Vārds.',
         'phone_number.required' => 'Nav norādīts Telefona nummurs',
         'phone_number.numeric' => 'Telefona nummurs ir ievadīts kļūdaini.',
+        'phone_number.digits' => 'Telefona nummuram jābūt vismaz 8 simbolu garam.',
         'device_type_id.required' => 'Nav norādīts Tips.',
         'name.required' => 'Nav norādīts Nosaukums.',
         'problem.required' => 'Nav norādīta Porblēma.'

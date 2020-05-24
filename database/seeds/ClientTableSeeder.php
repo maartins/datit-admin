@@ -13,7 +13,7 @@ class ClientTableSeeder extends Seeder {
         $client = new Client();
         $client->first_name = 'Ābols';
         $client->last_name = 'Zaļais';
-        $client->phone_number = '123456789';
+        $client->phone_number = '87654321';
         $client->address = 'Lielā iela 12';
         $client->client_type = 'person';
         $client->company_name = '';
@@ -22,7 +22,7 @@ class ClientTableSeeder extends Seeder {
         $client = new Client();
         $client->first_name = 'Normunds';
         $client->last_name = 'Kautkāds';
-        $client->phone_number = '4444444';
+        $client->phone_number = '12345678';
         $client->address = 'Neatrdes 11';
         $client->client_type = 'company';
         $client->company_name = 'SIA LoGo';

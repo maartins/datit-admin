@@ -5,16 +5,17 @@ namespace App\Http\Controllers;
 use App\Client;
 use App\Device;
 use App\DeviceService;
-use App\Http\Requests\InvoiceRequest;
 use App\Invoice;
 use App\Service;
+use App\Http\Requests\InvoiceRequest;
+use App\Http\Services\InvoiceServices;
 use PDF;
 
 class Invoices extends Controller {
 
     public function index() {
         $invoices = Invoice::sortable()->paginate(15);
-        
+
         foreach ($invoices as $invoice) {
             $invoice->setupInvoice();
         }
@@ -33,36 +34,7 @@ class Invoices extends Controller {
         switch ($request->input('action')) {
             case 'new':
                 $invoice = new Invoice($request->all());
-                $invoice->save();
-
-                $device = new Device($request->all());
-                $device->invoice_id = $invoice->id;
-                $device->save();
-
-                if (!empty($request->services)) {
-                    foreach ($request->services as $service_id) {
-                        $device_service = new DeviceService();
-                        $device_service->device_id = $device->id;
-                        $device_service->service_id = $service_id;
-                        $device_service->save();
-                    }
-                }
-
-                if (array_filter($request->new_service_description) && array_filter($request->new_service_price)) {
-                    $new_services = array_combine($request->new_service_description, $request->new_service_price);
-                    foreach ($new_services as $description => $price) {
-                        $service = new Service();
-                        $service->service_category_id = 1;
-                        $service->description = $description;
-                        $service->price = $price;
-                        $service->save();
-
-                        $device_service = new DeviceService();
-                        $device_service->device_id = $device->id;
-                        $device_service->service_id = $service->id;
-                        $device_service->save();
-                    }
-                }
+                $invoice->createAnInvoice($request);
                 return redirect('/clients');
             case 'back':
                 return redirect('/clients');

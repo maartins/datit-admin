@@ -1,7 +1,5 @@
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#company").hide();
-
         var selected_service_category = $("#service_category_id").children("option:selected").val();
 
         var rows = $('#services_table tr').hide();
@@ -18,8 +16,17 @@
     }
 
     function cloneService() {
-        var new_service_html = $('#new_service_inputs').children(':lt(4)').clone();
+        var new_service_html = $('#new_service_inputs').children(':lt(2)').clone();
+        $('<br/>').prependTo('#new_service_inputs');
+        $('<br/>').prependTo('#new_service_inputs');
         new_service_html.prependTo('#new_service_inputs');
+    }
+
+    function cloneComponent() {
+        var new_component_html = $('#new_component_inputs').children(':lt(2)').clone();
+        $('<br/>').prependTo('#new_component_inputs');
+        $('<br/>').prependTo('#new_component_inputs');
+        new_component_html.prependTo('#new_component_inputs');
     }
 </script>
 
@@ -30,13 +37,13 @@
             <option value="{{$type->id}}">{{$type->name}}</option>
         @endforeach
     </select>
-    <input size="60" type="text" name="name" placeholder="Nosaukums*"/>
-    <input size="60" type="text" name="additions" placeholder="Komplektācija"/>
+    <input size="60" type="text" name="name" placeholder="Nosaukums*" value="{{old('name')}}"/>
+    <input size="60" type="text" name="additions" placeholder="Komplektācija" value="{{old('additions')}}"/>
 </span>
 <span>
     <p>Problēmas apraksts:</p>
-    <input type="text" name="problem" placeholder="Problēma*" size="80"/>
-    <input type="text" name="note" placeholder="Piezīmes" size="60"/>
+    <input type="text" name="problem" placeholder="Problēma*" size="80" value="{{old('problem')}}"/>
+    <input type="text" name="note" placeholder="Piezīmes" size="60" value="{{old('note')}}"/>
 </span>
 <span class="device_work_list">
     <span>
@@ -57,16 +64,16 @@
 </span>
 <span id="new_service">
     <span id="new_service_inputs">
-        <br/>
-        <br/>
         <input type="text" name="new_service_description[]" placeholder="Papildus darbs" size="50"/>
         <input type="text" name="new_service_price[]" placeholder="Cena"/>
     </span>
     <button type="button" onClick="cloneService()">+</button>
 </span>
-<span>
+<span id="new_component">
     <p>Komponenšu maiņa, iepriekš sarunāts ar klientu:</p>
-    <input type="text" name="component[]" placeholder="Komponente" size="50"/>
-    <input type="text" name="component_price[]" placeholder="Cena"/>
-    <button type="button">+</button>
+    <span id="new_component_inputs">
+        <input type="text" name="new_component_name[]" placeholder="Komponente" size="50"/>
+        <input type="text" name="new_component_price[]" placeholder="Cena"/>
+    </span>
+    <button type="button" onClick="cloneComponent()">+</button>
 </span>

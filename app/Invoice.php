@@ -10,6 +10,70 @@ class Invoice extends Model {
 
     protected $fillable = ['client_id'];
 
+    public function createAnInvoice($request) {
+        if (!isset($request->client_id)) {
+            $client = new Client($request->all());
+            $client->save();
+            $this->client_id = $client->id;
+        } else {
+            $this->client_id = $request->client_id;
+        }
+
+        $this->save();
+
+        $device = new Device($request->all());
+        $device->invoice_id = $this->id;
+        $device->save();
+
+        if (!empty($request->services)) {
+            foreach ($request->services as $service_id) {
+                $device_service = new DeviceService();
+                $device_service->device_id = $device->id;
+                $device_service->service_id = $service_id;
+                $device_service->save();
+            }
+        }
+
+        $has_description = count(array_filter($request->new_service_description)) != 0;
+        $has_price = count(array_filter($request->new_service_price)) != 0;
+
+        if ($has_description && $has_price) {
+            $new_services = array_combine($request->new_service_description, $request->new_service_price);
+            foreach ($new_services as $description => $price) {
+                if ($price != null && $description != null) {
+                    $service = new Service();
+                    $service->service_category_id = 1;
+                    $service->description = $description;
+                    $service->price = $price;
+                    $service->save();
+
+                    $device_service = new DeviceService();
+                    $device_service->device_id = $device->id;
+                    $device_service->service_id = $service->id;
+                    $device_service->save();
+                }
+            }
+        }
+
+        $has_name = count(array_filter($request->new_component_name)) != 0;
+        $has_price = count(array_filter($request->new_component_price)) != 0;
+
+        if ($has_name && $has_price) {
+            $new_component = array_combine($request->new_component_name, $request->new_component_price);
+            foreach ($new_component as $name => $price) {
+                if ($price != null && $name != null) {
+                    $component = new Component();
+                    $component->device_id = $device->id;
+                    $component->name = $name;
+                    $component->price = $price;
+                    $component->save();
+                }
+            }
+        }
+
+        return $this;
+    }
+
     public function setupInvoice() {
         $this->invoice_number = str_pad($this->id, 6, '0', STR_PAD_LEFT);
         if (!empty($this->client_id)) {
@@ -47,7 +111,7 @@ class Invoice extends Model {
                 }
             }
         }
-        
+
         $this->total_sum = number_format($this->total_sum, 2, '.', '');
 
         return null;

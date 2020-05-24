@@ -41,27 +41,27 @@
                     @if(isset($service->service_category_name))
                         <td>{{$service->service_category_name}}</td>
                     @else
-                        <td>Trūkst</td>
+                        <td/>
                     @endif
                     @if(isset($service->description))
                         <td>{{$service->description}}</td>
                     @else
-                        <td>Trūkst</td>
+                        <td/>
                     @endif
                     @if(isset($service->price))
                         <td>{{$service->price}}</td>
                     @else
-                        <td>Trūkst</td>
+                        <td/>
                     @endif
                     @if(isset($service->created_at))
                         <td>{{$service->created_at->format('d/m/Y')}}</td>
                     @else
-                        <td>Trūkst</td>
+                        <td/>
                     @endif
                     @if(isset($service->updated_at))
                         <td>{{$service->updated_at->format('d/m/Y')}}</td>
                     @else
-                        <td>Trūkst</td>
+                        <td/>
                     @endif
                     <td><button onclick="window.location.href='services/edit/{{$service->id}}';">Rediģēt</button></td>
                     <td><button class="bad-button" onclick="window.location.href='services/delete/{{$service->id}}';">Dzēst</button></td>
