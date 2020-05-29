@@ -16,14 +16,14 @@
     }
 
     function cloneService() {
-        var new_service_html = $('#new_service_inputs').children(':lt(2)').clone();
+        var new_service_html = $('#new_service_inputs').children(':lt(3)').clone();
         $('<br/>').prependTo('#new_service_inputs');
         $('<br/>').prependTo('#new_service_inputs');
         new_service_html.prependTo('#new_service_inputs');
     }
 
     function cloneComponent() {
-        var new_component_html = $('#new_component_inputs').children(':lt(2)').clone();
+        var new_component_html = $('#new_component_inputs').children(':lt(3)').clone();
         $('<br/>').prependTo('#new_component_inputs');
         $('<br/>').prependTo('#new_component_inputs');
         new_component_html.prependTo('#new_component_inputs');
@@ -63,7 +63,13 @@
     </span>
 </span>
 <span id="new_service">
+    <br/>
     <span id="new_service_inputs">
+        <select id="service_category_id" name="new_service_category_id[]">
+            @foreach($invoice->service_categories as $category)
+                <option value="{{$category->id}}">{{$category->name}}</option>
+            @endforeach
+        </select>
         <input type="text" name="new_service_description[]" placeholder="Papildus darbs" size="50"/>
         <input type="text" name="new_service_price[]" placeholder="Cena"/>
     </span>

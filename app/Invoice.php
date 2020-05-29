@@ -38,13 +38,12 @@ class Invoice extends Model {
         $has_price = count(array_filter($request->new_service_price)) != 0;
 
         if ($has_description && $has_price) {
-            $new_services = array_combine($request->new_service_description, $request->new_service_price);
-            foreach ($new_services as $description => $price) {
-                if ($price != null && $description != null) {
+            for ($i = 0; $i < count($request->new_service_category_id); $i++) {
+                if ($request->new_service_description[$i] != null && $request->new_service_price[$i] != null) {
                     $service = new Service();
-                    $service->service_category_id = 1;
-                    $service->description = $description;
-                    $service->price = $price;
+                    $service->service_category_id = $request->new_service_category_id[$i];
+                    $service->description = $request->new_service_description[$i];
+                    $service->price = $request->new_service_price[$i];
                     $service->save();
 
                     $device_service = new DeviceService();
