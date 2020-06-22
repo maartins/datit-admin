@@ -7,33 +7,14 @@ use App\DeviceService;
 use App\DeviceType;
 use App\Http\Requests\DeviceRequest;
 
-class Devices extends Controller
-{
+class Devices extends Controller {
     public function index() {
         $devices = Device::sortable()->paginate(15);
-        $types = DeviceType::all();
-        
-        foreach ($devices as $device) {
-            foreach ($types as $type) {
-                if ($type->id == $device->device_type_id) {
-                    $device->type_name = $type->name;
-                }
-            }
-        }
-
         return view('Devices.devices', ['devices' => $devices]);
     }
 
     public function edit(Device $device) {
-        $device->types = DeviceType::all();
-        
-        foreach ($device->types as $type) {
-            if ($type->id == $device->device_type_id) {
-                $device->selected = $device->device_type_id;
-            }
-        }
-
-        return view('Devices.device_edit', ['device' => $device]);
+        return view('Devices.device_edit', ['device' => $device, 'device_types' => DeviceType::all()]);
     }
 
     public function update(DeviceRequest $request, Device $device) {

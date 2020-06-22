@@ -9,17 +9,7 @@ use App\ServiceCategory;
 class Services extends Controller {
     public function index() {
         $services = Service::sortable()->paginate(15);
-        $services->service_categories = ServiceCategory::all();
-
-        foreach ($services as $service) {
-            foreach ($services->service_categories as $category) {
-                if ($category->id == $service->service_category_id) {
-                    $service->service_category_name = $category->name;
-                }
-            }
-        }
-
-        return view('Services.services', ['services' => $services]);
+        return view('Services.services', ['services' => $services, 'categories' => ServiceCategory::all()]);
     }
 
     public function new(ServiceRequest $request) {
@@ -29,8 +19,7 @@ class Services extends Controller {
     }
 
     public function edit(Service $service) {
-        $service->service_categories = ServiceCategory::all();
-        return view('Services.service_edit', ['service' => $service]);
+        return view('Services.service_edit', ['service' => $service, 'categories' => ServiceCategory::all()]);
     }
 
     public function update(ServiceRequest $request, Service $service) {

@@ -7,6 +7,8 @@ use App\Device;
 use App\DeviceService;
 use App\Invoice;
 use App\Service;
+use App\ServiceCategory;
+use App\DeviceType;
 use App\Http\Requests\InvoiceRequest;
 use App\Http\Services\InvoiceServices;
 use PDF;
@@ -15,19 +17,13 @@ class Invoices extends Controller {
 
     public function index() {
         $invoices = Invoice::sortable()->paginate(15);
-
-        foreach ($invoices as $invoice) {
-            $invoice->setupInvoice();
-        }
-
         return view('Invoices.invoices', ['invoices' => $invoices]);
     }
 
     public function add($client_id) {
         $invoice = new Invoice();
         $invoice->client_id = $client_id;
-        $invoice->setupInvoice();
-        return view('Invoices.invoice_new', ['invoice' => $invoice]);
+        return view('Invoices.invoice_new', ['invoice' => $invoice, 'categories' => ServiceCategory::all(), 'device_types' => DeviceType::all(), 'services' => Service::all()]);
     }
 
     public function new(InvoiceRequest $request) {
@@ -43,18 +39,12 @@ class Invoices extends Controller {
 
     public function view($invoice_id) {
         $invoice = Invoice::findOrFail($invoice_id);
-        $invoice->setupInvoice();
         $invoice->pdf = base64_encode(PDF::loadView('PDFS.main', compact('invoice'))->output());
-        return view('Invoices.invoice_view', ['invoice' => $invoice]);
+        return view('Invoices.invoice_view', ['invoice' => $invoice, 'categories' => ServiceCategory::all(), 'device_types' => DeviceType::all()]);
     }
 
     public function viewClient($client_id) {
         $invoices = Invoice::sortable()->where('client_id', '=', $client_id)->paginate(15);
-
-        foreach ($invoices as $invoice) {
-            $invoice->setupInvoice();
-        }
-
         return view('Clients.client_invoices', ['invoices' => $invoices]);
     }
 

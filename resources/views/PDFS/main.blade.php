@@ -50,8 +50,8 @@
         <tbody>
             @foreach($invoice->devices as $device)
                 <tr>
-                    @if(isset($device->type_name))
-                        <td>{{$device->type_name}}</td>
+                    @if(isset($device->type->name))
+                        <td>{{$device->type->name}}</td>
                     @else
                         <td/>
                     @endif

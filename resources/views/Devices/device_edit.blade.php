@@ -9,8 +9,8 @@
                 <span>
                     <p>Ierīces dati:</p>
                     <select name="device_type_id">
-                        @foreach($device->types as $type)
-                            @if($device->selected == $type->id)
+                        @foreach($device_types as $type)
+                            @if($device->type->id == $type->id)
                                 <option value="{{$type->id}}" selected>{{$type->name}}</option>
                             @else
                                 <option value="{{$type->id}}">{{$type->name}}</option>

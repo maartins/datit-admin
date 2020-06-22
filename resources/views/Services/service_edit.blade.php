@@ -8,11 +8,11 @@
                 <span>
                 <p>Pakalopjuma dati:</p>
                 <select name="service_category_id">
-                    @foreach($service->service_categories as $type)
-                        @if($service->service_category_id == $type->id)
-                            <option value="{{$type->id}}" selected>{{$type->name}}</option>
+                    @foreach($categories as $category)
+                        @if($service->category->id == $category->id)
+                            <option value="{{$category->id}}" selected>{{$category->name}}</option>
                         @else
-                            <option value="{{$type->id}}">{{$type->name}}</option>
+                            <option value="{{$category->id}}">{{$category->name}}</option>
                         @endif
                     @endforeach
                 </select>

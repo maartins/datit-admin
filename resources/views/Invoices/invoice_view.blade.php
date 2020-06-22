@@ -74,16 +74,16 @@
     <div>
         <table>
             <tr>
-                <th>@sortablelink('type', 'Tips')</th>
-                <th>@sortablelink('name', 'Nosaukums')</th>
-                <th>@sortablelink('additions', 'Komplektācija')</th>
-                <th>@sortablelink('problem', 'Problēmas')</th>
-                <th>@sortablelink('note', 'Piezīmes')</th>
+                <th>Tips</th>
+                <th>Nosaukums</th>
+                <th>Komplektācija</th>
+                <th>Problēmas</th>
+                <th>Piezīmes</th>
             </tr>
             @foreach($invoice->devices as $device)
                 <tr>
-                    @if(isset($device->type_name))
-                        <td>{{$device->type_name}}</td>
+                    @if(isset($device->type->name))
+                        <td>{{$device->type->name}}</td>
                     @else
                         <td/>
                     @endif
@@ -116,15 +116,15 @@
     <div>
         <table>
             <tr>
-                <th>@sortablelink('service_category_name', 'Kategorija')</th>
-                <th>@sortablelink('description', 'Apraksts')</th>
-                <th>@sortablelink('price', 'Cena')</th>
+                <th>Kategorija</th>
+                <th>Apraksts</th>
+                <th>Cena</th>
             </tr>
             @foreach($invoice->devices as $device)
                 @foreach($device->services as $service)
                     <tr>
-                        @if(isset($service->service_category_name))
-                            <td>{{$service->service_category_name}}</td>
+                        @if(isset($service->category->name))
+                            <td>{{$service->category->name}}</td>
                         @else
                             <td/>
                         @endif
@@ -146,7 +146,7 @@
     </div>
 
     <div>
-        <object data="data:application/pdf;base64,{{$invoice->pdf}}" type="application/pdf" width="80%" height="600ex">
+        <object id="pdf" data="data:application/pdf;base64,{{$invoice->pdf}}" type="application/pdf" width="80%" height="600ex">
             <embed src="data:application/pdf;base64,{{$invoice->pdf}}" type="application/pdf"/>
         </object>
     </div>

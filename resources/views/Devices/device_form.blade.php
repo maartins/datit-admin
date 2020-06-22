@@ -33,7 +33,7 @@
 <span>
     <p>Ierīces dati:</p>
     <select name="device_type_id">
-        @foreach($invoice->device_types as $type)
+        @foreach($device_types as $type)
             <option value="{{$type->id}}">{{$type->name}}</option>
         @endforeach
     </select>
@@ -49,14 +49,14 @@
     <span>
         <p>Paredzamie darbi:</p>
         <select id="service_category_id" name="service_category_id" onchange="selected(this.value)">
-            @foreach($invoice->service_categories as $category)
+            @foreach($categories as $category)
                 <option value="{{$category->id}}">{{$category->name}}</option>
             @endforeach
         </select>
     </span>
     <span>
         <table id="services_table">
-            @foreach($invoice->services as $service)
+            @foreach($services as $service)
                 <tr><td id="{{$service->service_category_id}}"><input type="checkbox" name="services[]" value="{{$service->id}}"></td><td>{{$service->description}}</td><td><b>{{$service->price}}</b></td></tr>
             @endforeach
         </table>
@@ -66,7 +66,7 @@
     <br/>
     <span id="new_service_inputs">
         <select id="service_category_id" name="new_service_category_id[]">
-            @foreach($invoice->service_categories as $category)
+            @foreach($categories as $category)
                 <option value="{{$category->id}}">{{$category->name}}</option>
             @endforeach
         </select>
